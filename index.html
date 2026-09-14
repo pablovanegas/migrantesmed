@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudiantes migrantes en la matrícula de Medellín</title>
+<meta name="description" content="Informe público de la Secretaría de Educación de Medellín sobre la población estudiantil extranjera matriculada en el Distrito: territorio, instituciones educativas y composición.">
+<meta property="og:title" content="Estudiantes migrantes en la matrícula de Medellín">
+<meta property="og:description" content="Informe público de la Secretaría de Educación de la Alcaldía de Medellín.">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="assets/css/sistema-diseno.css">
+<style>
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  body{margin:0;background:var(--superficie-pagina);color:var(--texto-principal);font-family:var(--fuente-principal);font-size:var(--tam-cuerpo);line-height:var(--interlineado-cuerpo);-webkit-font-smoothing:antialiased}
+  a{color:var(--texto-enlace);text-decoration:none}
+  a:hover{color:var(--texto-enlace-hover);text-decoration:underline}
+  :focus-visible{outline:none;box-shadow:var(--anillo-foco);border-radius:var(--radio-xs)}
+  .contenido{max-width:var(--ancho-contenido);margin:0 auto;padding:0 var(--esp-8);box-sizing:border-box}
+  @media (max-width:640px){.contenido{padding:0 var(--esp-4)}}
+
+  /* ---------- encabezado ---------- */
+  .edu-encabezado{flex-wrap:wrap;row-gap:var(--esp-3)}
+  .encabezado-marca{display:flex;align-items:center;gap:var(--esp-5)}
+  .encabezado-marca img{display:block;width:150px;height:auto}
+  .encabezado-dependencia{padding-left:var(--esp-5);border-left:1px solid var(--borde-sutil);font-size:var(--tam-cuerpo-sm);font-weight:var(--peso-bold);line-height:1.2}
+  .edu-encabezado__nav{flex-wrap:wrap;row-gap:var(--esp-1)}
+  @media (max-width:760px){.edu-encabezado{padding:var(--esp-3) var(--esp-4)}.edu-encabezado__nav{margin-left:0;gap:var(--esp-4)}}
+
+  /* ---------- portada ---------- */
+  .portada{position:relative;overflow:hidden;background:var(--degradado-campana);color:var(--texto-inverso);padding:var(--esp-16) 0 calc(var(--esp-20) + var(--esp-6))}
+  .portada .edu-marca-agua{opacity:var(--marca-agua-opacidad)}
+  .portada .edu-marca-agua__fila{font-size:132px}
+  .portada-cuadricula{position:absolute;inset:24px 0;background:var(--cuadricula);pointer-events:none}
+  .portada-texto{position:relative;display:flex;flex-direction:column;gap:var(--esp-6)}
+  .antetitulo{display:flex;align-items:center;gap:var(--esp-4);font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-institucional);text-transform:uppercase}
+  .antetitulo::after{content:"";flex:1;min-width:40px;height:1px;background:rgba(255,255,255,.45)}
+  .portada h1{margin:0;max-width:21ch;font-size:clamp(2.1rem,4.6vw,3.5rem);font-weight:var(--peso-black);line-height:var(--interlineado-display);letter-spacing:var(--tracking-display);text-wrap:balance}
+  .portada-resumen{margin:0;max-width:62ch;font-size:var(--tam-cuerpo-lg);color:rgba(255,255,255,.92)}
+  .portada-resumen strong{color:#fff}
+  .portada-fuente{display:flex;flex-wrap:wrap;gap:var(--esp-2) var(--esp-6);font-size:var(--tam-cuerpo-sm);color:rgba(255,255,255,.82)}
+
+  /* ---------- cifras ---------- */
+  .cifras{position:relative;z-index:2;margin-top:-64px}
+  .cifras-rejilla{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--borde-sutil);border-radius:var(--radio-contenedor);overflow:hidden;box-shadow:var(--sombra-tarjeta)}
+  @media (max-width:1100px){.cifras-rejilla{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:640px){.cifras-rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}.cifra:last-child{grid-column:1/-1}}
+  .cifra{background:var(--superficie-tarjeta);padding:var(--esp-6) var(--esp-5);min-width:0}
+  .cifra-rotulo{display:block;font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--texto-apoyo)}
+  .cifra-valor{display:block;margin:var(--esp-3) 0 var(--esp-2);font-size:clamp(1.6rem,2.6vw,var(--tam-titulo-2));font-weight:var(--peso-black);line-height:1.05;color:var(--texto-marca);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .cifra-apoyo{display:block;font-size:var(--tam-cuerpo-sm);line-height:1.45;color:var(--texto-secundario)}
+
+  /* ---------- secciones ---------- */
+  .seccion{padding-top:var(--esp-16)}
+  .seccion-cabeza{display:flex;flex-direction:column;gap:var(--esp-3);margin-bottom:var(--esp-8)}
+  .seccion-num{font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--azul-306-profundo)}
+  .seccion h2{margin:0;max-width:24ch;font-size:var(--tam-titulo-2);font-weight:var(--peso-extrabold);line-height:var(--interlineado-titulo);letter-spacing:var(--tracking-titulo);text-wrap:balance}
+  .seccion-intro{margin:0;max-width:68ch;color:var(--texto-secundario)}
+  .lectura{margin:var(--esp-6) 0 0;padding:var(--esp-5) var(--esp-6);background:var(--superficie-sutil);border-left:var(--borde-grueso) solid var(--azul-306);color:var(--texto-secundario);max-width:none}
+  .lectura strong{color:var(--texto-principal)}
+  .nota{margin:var(--esp-4) 0 0;font-size:var(--tam-etiqueta);color:var(--texto-apoyo)}
+  .caja{border:1px solid var(--borde-sutil);border-radius:var(--radio-lg);background:var(--superficie-tarjeta)}
+  .subtitulo{margin:0;padding-bottom:var(--esp-3);border-bottom:1px solid var(--borde-medio);font-size:var(--tam-etiqueta);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--texto-secundario)}
+
+  /* ---------- mapa ---------- */
+  .mapa-rejilla{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,320px);gap:var(--esp-6);align-items:start}
+  @media (max-width:900px){.mapa-rejilla{grid-template-columns:1fr}}
+  .mapa-caja{padding:var(--esp-4) var(--esp-5) var(--esp-5)}
+  .edu-pestanas{overflow-x:auto}
+  #mapa{display:block;width:100%;height:auto;margin-top:var(--esp-4)}
+  #mapa .comuna{cursor:pointer;transition:opacity var(--dur-rapida) var(--ease-estandar)}
+  #mapa .comuna:hover,#mapa .comuna:focus{opacity:.86;outline:none}
+  #mapa .etiqueta{font-family:var(--fuente-principal);font-size:7.6px;font-weight:var(--peso-semibold);fill:var(--tinta-100);paint-order:stroke;stroke:#fff;stroke-width:2.6px;stroke-linejoin:round;pointer-events:none}
+  .leyenda{display:flex;align-items:center;gap:var(--esp-3);flex-wrap:wrap;margin-top:var(--esp-4);padding-top:var(--esp-4);border-top:1px solid var(--borde-sutil)}
+  .leyenda-titulo{font-size:var(--tam-etiqueta);color:var(--texto-secundario)}
+  .leyenda-escala{display:flex;align-items:center;gap:var(--esp-2);white-space:nowrap;font-size:var(--tam-micro);color:var(--texto-apoyo);font-variant-numeric:tabular-nums}
+  .leyenda-rampa{display:flex;height:10px;width:156px;border-radius:2px;overflow:hidden}
+  .leyenda-rampa i{flex:1}
+  .leyenda .edu-interruptor{margin-left:auto;font-size:var(--tam-cuerpo-sm)}
+  .panel{position:sticky;top:var(--esp-5);padding:var(--esp-6)}
+  @media (max-width:900px){.panel{position:static}}
+  .panel h3{margin:0;font-size:var(--tam-titulo-4);font-weight:var(--peso-extrabold);line-height:var(--interlineado-titulo)}
+  .panel .edu-etiqueta{margin-top:var(--esp-3);background:var(--estado-info-fondo);color:var(--azul-306-profundo)}
+  .panel-filas{list-style:none;margin:var(--esp-5) 0 0;padding:0}
+  .panel-filas li{display:flex;justify-content:space-between;align-items:baseline;gap:var(--esp-4);padding:var(--esp-2) 0;border-bottom:1px solid var(--borde-sutil)}
+  .panel-filas span{font-size:var(--tam-etiqueta);color:var(--texto-secundario);line-height:1.35}
+  .panel-filas b{font-size:var(--tam-cuerpo-sm);font-weight:var(--peso-bold);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .panel-filas b.marca{color:var(--texto-marca)}
+  .panel-nota{margin:var(--esp-4) 0 0;font-size:var(--tam-etiqueta);color:var(--texto-apoyo)}
+  .aviso-mapa{position:fixed;z-index:20;pointer-events:none;max-width:240px;padding:var(--esp-2) var(--esp-3);border-radius:var(--radio-xs);background:var(--azul-306-profundo);color:#fff;font-size:var(--tam-etiqueta);line-height:1.4;box-shadow:var(--sombra-elevada);opacity:0;transition:opacity var(--dur-instantanea)}
+  .aviso-mapa b{font-variant-numeric:tabular-nums}
+
+  /* ---------- barras: tablas, para que ninguna cifra quede recortada ---------- */
+  .rankings{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--esp-10)}
+  .bloque{display:flex;flex-direction:column;gap:var(--esp-4);min-width:0}
+  table.barras{width:100%;border-collapse:collapse;font-size:var(--tam-etiqueta)}
+  table.barras th{padding:3px var(--esp-3) 3px 0;text-align:left;font-weight:var(--peso-regular);color:var(--texto-secundario);white-space:nowrap}
+  table.barras td.pista{width:100%;padding:3px var(--esp-3) 3px 0}
+  table.barras td.pista span{display:block;height:14px;background:var(--superficie-hundida);border-radius:2px;overflow:hidden}
+  table.barras td.pista i{display:block;height:100%;min-width:2px;border-radius:2px}
+  table.barras td.valor{padding:3px 0;text-align:right;font-weight:var(--peso-bold);font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.barras td.secundario{padding:3px 0 3px var(--esp-4);text-align:right;color:var(--texto-apoyo);font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.barras.modelos{font-size:var(--tam-cuerpo-sm)}
+  table.barras.modelos th{white-space:normal;min-width:11em;color:var(--texto-principal);line-height:1.3}
+  table.barras.modelos td.pista span{height:16px}
+  table.barras.delgadas td.pista span{height:10px}
+
+  /* ---------- tablas de datos ---------- */
+  .tabla-caja{margin-top:var(--esp-8);border:1px solid var(--borde-sutil);border-radius:var(--radio-md);overflow-x:auto}
+  table.datos{width:100%;border-collapse:collapse;font-size:var(--tam-cuerpo-sm);color:var(--texto-secundario)}
+  table.datos th{padding:var(--esp-3) var(--esp-4);border-bottom:1px solid var(--borde-medio);font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--texto-apoyo);text-align:left;white-space:nowrap;vertical-align:bottom}
+  table.datos td{padding:var(--esp-3) var(--esp-4);border-bottom:1px solid var(--borde-sutil);vertical-align:top}
+  table.datos tbody tr:last-child td{border-bottom:0}
+  table.datos tbody tr:hover{background:var(--superficie-sutil)}
+  table.datos .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.datos .nombre{font-weight:var(--peso-semibold);color:var(--texto-principal)}
+  table.datos .ie{min-width:16em;line-height:1.35}
+  table.datos .corto{white-space:nowrap}
+  table.datos .fuerte{font-weight:var(--peso-bold);color:var(--texto-marca)}
+  table.datos .apagado{color:var(--texto-apoyo)}
+
+  /* ---------- composicion ---------- */
+  .composicion{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--esp-6)}
+  .tarjeta{padding:var(--esp-6);display:flex;flex-direction:column;gap:var(--esp-5);min-width:0}
+  .destacado{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--esp-2) var(--esp-4);padding:var(--esp-5);background:var(--estado-info-fondo);border-radius:var(--radio-md);color:var(--azul-306-profundo)}
+  .destacado b{font-size:var(--tam-titulo-1);font-weight:var(--peso-black);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .destacado span{font-size:var(--tam-cuerpo-sm);line-height:var(--interlineado-compacto)}
+
+  /* ---------- metodologia ---------- */
+  .metodo{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--esp-6);padding-bottom:var(--esp-16)}
+  .metodo h3{margin:0 0 var(--esp-2);font-size:var(--tam-cuerpo);font-weight:var(--peso-bold)}
+  .metodo p{margin:0;font-size:var(--tam-cuerpo-sm);color:var(--texto-secundario)}
+  .metodo-col{display:flex;flex-direction:column;gap:var(--esp-5)}
+  .aviso-legal{background:var(--estado-legal-fondo);color:var(--morado-7647-profundo)}
+  .edu-aviso__cuerpo{margin:0}
+
+  /* ---------- pie ---------- */
+  .pie-rejilla{max-width:var(--ancho-contenido);margin:0 auto;display:flex;flex-direction:column;gap:var(--esp-4)}
+  .pie-rejilla img{display:block;width:190px;height:auto}
+  .pie-datos{margin:0;font-size:var(--tam-cuerpo-sm);line-height:var(--interlineado-cuerpo);color:rgba(255,255,255,.85)}
+  .pie-nota{max-width:var(--ancho-contenido);margin:var(--esp-10) auto 0;padding-top:var(--esp-5);border-top:1px solid rgba(255,255,255,.2);font-size:var(--tam-micro);line-height:var(--interlineado-cuerpo);color:rgba(255,255,255,.72)}
+  .sin-datos{margin:var(--esp-8) 0;padding:var(--esp-5);border-radius:var(--radio-md);background:var(--estado-error-fondo);color:var(--estado-error)}
+</style>
+</head>
+<body>
+
+<header class="edu-encabezado">
+  <div class="encabezado-marca">
+    <img src="assets/img/alcaldia-base.png" alt="Alcaldía de Medellín, Distrito de Ciencia, Tecnología e Innovación" width="150" height="105">
+    <span class="encabezado-dependencia">Secretaría de Educación</span>
+  </div>
+  <nav class="edu-encabezado__nav" aria-label="Secciones del informe">
+    <a class="edu-encabezado__enlace" href="#territorio">Territorio</a>
+    <a class="edu-encabezado__enlace" href="#comunas">Comunas</a>
+    <a class="edu-encabezado__enlace" href="#instituciones">Instituciones</a>
+    <a class="edu-encabezado__enlace" href="#composicion">Composición</a>
+    <a class="edu-encabezado__enlace" href="#metodologia">Metodología</a>
+  </nav>
+</header>
+
+<main>
+  <section class="portada" aria-labelledby="titulo-informe">
+    <div class="edu-marca-agua" aria-hidden="true" id="marca-agua"></div>
+    <div class="portada-cuadricula" aria-hidden="true"></div>
+    <div class="contenido portada-texto">
+      <p class="antetitulo" id="antetitulo">Informe público</p>
+      <h1 id="titulo-informe">Estudiantes migrantes en la matrícula de Medellín</h1>
+      <p class="portada-resumen" id="portada-resumen"></p>
+      <p class="portada-fuente">
+        <span>Fuente: SIMAT y Directorio Único de Establecimientos</span>
+        <span id="portada-registros"></span>
+        <span id="portada-fecha"></span>
+      </p>
+    </div>
+  </section>
+
+  <div class="contenido cifras">
+    <div class="cifras-rejilla">
+      <div class="cifra"><span class="cifra-rotulo">Matriculados</span><b class="cifra-valor" id="k-mat">—</b><span class="cifra-apoyo">matrícula total del Distrito</span></div>
+      <div class="cifra"><span class="cifra-rotulo">Estudiantes extranjeros</span><b class="cifra-valor" id="k-ext">—</b><span class="cifra-apoyo">con país de origen distinto de Colombia</span></div>
+      <div class="cifra"><span class="cifra-rotulo">Nacionalidades</span><b class="cifra-valor" id="k-nac">—</b><span class="cifra-apoyo">países de origen distintos</span></div>
+      <div class="cifra"><span class="cifra-rotulo">Promedio por I. E.</span><b class="cifra-valor" id="k-prom">—</b><span class="cifra-apoyo">extranjeros por institución</span></div>
+      <div class="cifra"><span class="cifra-rotulo">Instituciones</span><b class="cifra-valor" id="k-ie">—</b><span class="cifra-apoyo">del directorio único (DUE)</span></div>
+    </div>
+  </div>
+
+  <noscript><div class="contenido"><p class="sin-datos">Este informe necesita JavaScript habilitado para mostrar las cifras, el mapa y las tablas.</p></div></noscript>
+
+  <!-- 01 · Territorio -->
+  <section class="contenido seccion" id="territorio">
+    <header class="seccion-cabeza">
+      <span class="seccion-num">01 · Territorio</span>
+      <h2>Dónde está la población extranjera matriculada</h2>
+      <p class="seccion-intro">Las 21 comunas y corregimientos, coloreados según la métrica seleccionada. Cada punto es una sede educativa con cinco o más estudiantes extranjeros y su tamaño corresponde a cuántos atiende. Seleccione una división para consultar su detalle.</p>
+    </header>
+    <div class="mapa-rejilla">
+      <div class="caja mapa-caja">
+        <div class="edu-pestanas" role="tablist" aria-label="Métrica del mapa" id="pestanas">
+          <button type="button" role="tab" class="edu-pestanas__boton" data-metrica="ext" aria-selected="true">Total de migrantes</button>
+          <button type="button" role="tab" class="edu-pestanas__boton" data-metrica="promIE" aria-selected="false">Promedio por I. E.</button>
+        </div>
+        <svg id="mapa" role="img" aria-label="Mapa de Medellín por comuna y corregimiento con los estudiantes extranjeros matriculados"></svg>
+        <div class="leyenda">
+          <span class="leyenda-titulo" id="leyenda-titulo"></span>
+          <span class="leyenda-escala">
+            <span id="leyenda-min"></span>
+            <span class="leyenda-rampa" aria-hidden="true"><i style="background:#e4f6fd"></i><i style="background:#c0e9fa"></i><i style="background:#8fd8f5"></i><i style="background:#54c1ea"></i><i style="background:#1ea3d6"></i><i style="background:#0b6ea8"></i><i style="background:#003a57"></i></span>
+            <span id="leyenda-max"></span>
+          </span>
+          <label class="edu-interruptor">
+            <input type="checkbox" role="switch" id="ver-sedes" checked>
+            <span class="edu-interruptor__pista"><span class="edu-interruptor__perilla"></span></span>
+            <span>Sedes educativas</span>
+          </label>
+        </div>
+      </div>
+      <aside class="caja panel" aria-live="polite">
+        <h3 id="panel-titulo">Ciudad completa</h3>
+        <span class="edu-etiqueta edu-etiqueta--sm" id="panel-etiqueta">21 divisiones</span>
+        <ul class="panel-filas" id="panel-filas"></ul>
+        <p class="panel-nota" id="panel-nota"></p>
+      </aside>
+    </div>
+    <p class="lectura"><strong>Lectura.</strong> <span id="lectura-territorio"></span></p>
+  </section>
+
+  <!-- 02 · Comunas -->
+  <section class="contenido seccion" id="comunas">
+    <header class="seccion-cabeza">
+      <span class="seccion-num">02 · Comunas y corregimientos</span>
+      <h2>El volumen no coincide con el promedio</h2>
+      <p class="seccion-intro">Las mismas 21 divisiones ordenadas por dos criterios: el número de estudiantes extranjeros matriculados y el promedio que atiende cada institución educativa de la división.</p>
+    </header>
+    <div class="rankings">
+      <div class="bloque">
+        <h3 class="subtitulo">Estudiantes extranjeros matriculados</h3>
+        <table class="barras"><tbody id="rank-ext"></tbody></table>
+      </div>
+      <div class="bloque">
+        <h3 class="subtitulo">Promedio de extranjeros por institución</h3>
+        <table class="barras"><tbody id="rank-prom"></tbody></table>
+      </div>
+    </div>
+    <p class="lectura"><strong>Lectura.</strong> <span id="lectura-comunas"></span></p>
+    <div class="tabla-caja">
+      <table class="datos">
+        <thead>
+          <tr>
+            <th scope="col">Comuna o corregimiento</th>
+            <th scope="col" class="num">Matriculados</th>
+            <th scope="col" class="num">Extranjeros</th>
+            <th scope="col" class="num">I. E.</th>
+            <th scope="col" class="num">Con migrantes</th>
+            <th scope="col" class="num">Promedio por I. E.</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-comunas"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 03 · Instituciones -->
+  <section class="contenido seccion" id="instituciones">
+    <header class="seccion-cabeza">
+      <span class="seccion-num">03 · Instituciones educativas</span>
+      <h2>Las instituciones que más población migrante atienden</h2>
+      <p class="seccion-intro">Instituciones ordenadas por número de estudiantes extranjeros matriculados, con su número de sedes, grupos y matrícula total.</p>
+    </header>
+    <div class="tabla-caja" style="margin-top:0">
+      <table class="datos">
+        <thead>
+          <tr>
+            <th scope="col">Institución educativa</th>
+            <th scope="col">Comuna</th>
+            <th scope="col">Barrio</th>
+            <th scope="col">Sector</th>
+            <th scope="col" class="num">Sedes</th>
+            <th scope="col" class="num">Grupos</th>
+            <th scope="col" class="num">Matriculados</th>
+            <th scope="col" class="num">Extranjeros</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ie"></tbody>
+      </table>
+    </div>
+    <p class="nota" id="nota-ie"></p>
+  </section>
+
+  <!-- 04 · Composicion -->
+  <section class="contenido seccion" id="composicion">
+    <header class="seccion-cabeza">
+      <span class="seccion-num">04 · Composición</span>
+      <h2>Quiénes son y en qué modelo estudian</h2>
+      <p class="seccion-intro">Nacionalidad de origen y modelo educativo en el que está matriculada la población extranjera.</p>
+    </header>
+    <div class="composicion">
+      <div class="caja tarjeta">
+        <h3 class="subtitulo" style="border:0;padding:0">Nacionalidad de origen</h3>
+        <div class="destacado"><b id="nac-top-pct"></b><span><strong id="nac-top-nombre"></strong><br><span id="nac-top-n"></span></span></div>
+        <table class="barras delgadas"><tbody id="nac-resto"></tbody></table>
+      </div>
+      <div class="caja tarjeta">
+        <h3 class="subtitulo" style="border:0;padding:0">Modelo educativo · estudiantes extranjeros</h3>
+        <table class="barras modelos"><tbody id="modelos"></tbody></table>
+        <p class="nota" style="margin:0" id="nota-modelos"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · Metodologia -->
+  <section class="contenido seccion" id="metodologia">
+    <header class="seccion-cabeza">
+      <span class="seccion-num">05 · Metodología</span>
+      <h2>Alcance, definiciones y protección de datos</h2>
+    </header>
+    <div class="metodo">
+      <div class="metodo-col">
+        <div>
+          <h3>Alcance de esta publicación</h3>
+          <p>El informe presenta los indicadores aprobados para difusión, con la estructura del libro de referencia de la Secretaría de Educación. El proceso metodológico completo se conserva en la versión interna para uso del equipo de datos y de la Secretaría.</p>
+        </div>
+        <div>
+          <h3>Definiciones</h3>
+          <p>Se considera estudiante extranjero a quien registra un país de origen distinto de Colombia sobre matrícula activa. El promedio por institución educativa es el número de estudiantes extranjeros de una división dividido entre sus instituciones educativas.</p>
+        </div>
+      </div>
+      <div class="metodo-col">
+        <div class="edu-aviso aviso-legal" role="status">
+          <span class="edu-aviso__icono"><svg class="edu-icono" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg></span>
+          <div style="min-width:0">
+            <p class="edu-aviso__titulo">Protección de datos</p>
+            <div class="edu-aviso__cuerpo" id="aviso-datos">Todas las cifras son agregadas. La fuente contiene datos personales de menores de edad que no se reproducen. No se publican instituciones, sedes, nacionalidades ni modelos con menos de cinco estudiantes extranjeros, y las sedes por debajo de ese umbral no se representan en el mapa.</div>
+          </div>
+        </div>
+        <p class="edu-nota-legal"><strong>Ley 1581 de 2012.</strong> Los datos personales de origen se tratan únicamente para la planeación del servicio educativo. La Secretaría de Educación informa que las cifras aquí publicadas corresponden al corte del <span id="fecha-corte"></span> y pueden ajustarse con las actualizaciones de matrícula del SIMAT. <strong>Vigencia: <span id="vigencia"></span>.</strong></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="edu-pie">
+  <div class="pie-rejilla">
+    <img src="assets/img/alcaldia-blanco.png" alt="Alcaldía de Medellín, Distrito de Ciencia, Tecnología e Innovación" width="190" height="133">
+    <p class="pie-datos">Secretaría de Educación · Subsecretaría de Planeación Educativa<br>Calle 44 # 52-165, Centro Administrativo Distrital La Alpujarra<br>Línea única: 604 385 5555<br><a href="https://www.medellin.gov.co">www.medellin.gov.co</a></p>
+  </div>
+  <p class="pie-nota" id="pie-nota"></p>
+</footer>
+
+<div class="aviso-mapa" id="aviso-mapa" aria-hidden="true"></div>
+
+<script src="assets/datos/datos-informe.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var D = window.DATOS_INFORME;
+  if (!D) {
+    var m = document.querySelector('main');
+    m.insertAdjacentHTML('afterbegin', '<div class="contenido"><p class="sin-datos">No se pudo cargar el archivo de datos (assets/datos/datos-informe.js). Verifique que esté publicado junto a index.html.</p></div>');
+    return;
+  }
+
+  /* ------------------------------------------------------------ utilidades */
+  var $ = function (id) { return document.getElementById(id); };
+  var nf = function (n) { return n == null ? '—' : Number(n).toLocaleString('es-CO'); };
+  var dec = function (n, d) {
+    d = d == null ? 1 : d;
+    return n == null ? '—' : Number(n).toLocaleString('es-CO', { minimumFractionDigits: d, maximumFractionDigits: d });
+  };
+  var pc = function (n, d) { return n == null ? '—' : dec(n, d) + ' %'; };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var texto = function (id, t) { var e = $(id); if (e) e.textContent = t; };
+
+  var TILDES = { belen: 'Belén', cristobal: 'Cristóbal', america: 'América', institucion: 'Institución', educacion: 'Educación', jose: 'José', maria: 'María', jesus: 'Jesús', angel: 'Ángel', nicolas: 'Nicolás', simon: 'Simón', bolivar: 'Bolívar', gomez: 'Gómez', perez: 'Pérez', martinez: 'Martínez', gonzalez: 'González', ramirez: 'Ramírez', velez: 'Vélez', rodriguez: 'Rodríguez', hernandez: 'Hernández', sanchez: 'Sánchez', diaz: 'Díaz', corazon: 'Corazón', concepcion: 'Concepción', asuncion: 'Asunción', union: 'Unión', leon: 'León', ramon: 'Ramón', joaquin: 'Joaquín', hector: 'Héctor', ines: 'Inés', republica: 'República', ninos: 'Niños', mision: 'Misión', tomas: 'Tomás', andres: 'Andrés', pedron: 'Pedrón', eucaristico: 'Eucarístico', montana: 'Montaña', sebastian: 'Sebastián', martin: 'Martín', garcia: 'García', lopez: 'López', marquez: 'Márquez', benitez: 'Benítez' };
+  var MENORES = { de: 1, del: 1, la: 1, las: 1, los: 1, el: 1, y: 1, e: 1, a: 1 };
+  var PAISES = { 'ESTADOS UNIDOS': 'Estados Unidos', ECUADOR: 'Ecuador', PANAMA: 'Panamá', PERU: 'Perú', ESPANA: 'España', ARGENTINA: 'Argentina', CHILE: 'Chile', BRASIL: 'Brasil', MEXICO: 'México', 'COSTA RICA': 'Costa Rica', 'NO ESPECIFICADO': 'No especificado', VENEZUELA: 'Venezuela', CANADA: 'Canadá', BOLIVIA: 'Bolivia', CUBA: 'Cuba' };
+  var MODELOS = {
+    'EDUCACION TRADICIONAL': 'Educación tradicional',
+    'PROGRAMA PARA JOVENES EN EXTRAEDAD Y ADULTOS': 'Jóvenes en extraedad y adultos',
+    'FLEXIBLE PENSAR': 'Flexible Pensar',
+    'ACELERACION DEL APRENDIZAJE': 'Aceleración del Aprendizaje',
+    'HORIZONTES CON BRUJULA PARA EL APRENDIZAJE': 'Horizontes con Brújula para el Aprendizaje',
+    'ESCUELA NUEVA': 'Escuela Nueva',
+    'TEJIENDO SABERES': 'Tejiendo Saberes'
+  };
+  var ORD = ['', 'primera', 'segunda', 'tercera', 'cuarta', 'quinta', 'sexta', 'séptima', 'octava', 'novena', 'décima', 'undécima', 'duodécima', 'decimotercera', 'decimocuarta', 'decimoquinta', 'decimosexta', 'decimoséptima', 'decimoctava', 'decimonovena', 'vigésima', 'vigesimoprimera'];
+  var MES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  var RAMPA = ['#e4f6fd', '#c0e9fa', '#8fd8f5', '#54c1ea', '#1ea3d6', '#0b6ea8', '#003a57'];
+
+  function nom(s) {
+    if (!s) return '—';
+    return String(s).toLowerCase().split(/\s+/).map(function (w, i) {
+      var t = TILDES[w] || (w.charAt(0).toUpperCase() + w.slice(1));
+      return i && MENORES[w] ? w : t;
+    }).join(' ');
+  }
+  function nomIE(s) {
+    if (!s) return '—';
+    if (s.indexOf('INSTITUCION EDUCATIVA ') === 0) return 'I. E. ' + nom(s.slice(22));
+    if (s.indexOf('CENTRO EDUCATIVO ') === 0) return 'C. E. ' + nom(s.slice(17));
+    if (s.indexOf('COLEGIO ') === 0) return 'Colegio ' + nom(s.slice(8));
+    return nom(s);
+  }
+  var ordinal = function (n) { return ORD[n] || (n + '.ª'); };
+  var fecha = (function () {
+    var p = String(D.meta.generado).split('-');
+    return p.length === 3 ? (+p[2]) + ' de ' + MES[+p[1] - 1] + ' de ' + p[0] : D.meta.generado;
+  })();
+
+  /* ------------------------------------------------------- portada y cifras */
+  var K = D.kpi;
+  var nacTop = D.nacion[0];
+  var paisTop = PAISES[nacTop.p] || nom(nacTop.p);
+
+  texto('antetitulo', 'Informe público · Vigencia ' + D.meta.vigencia);
+  $('portada-resumen').innerHTML = 'La Secretaría de Educación registra <strong>' + nf(K.extranjeros) +
+    ' estudiantes extranjeros</strong> entre los ' + nf(K.matriculados) + ' matriculados en el Distrito, con un promedio de ' +
+    dec(K.promIE) + ' por institución educativa. El ' + pc(nacTop.pct) + ' proviene de ' + esc(paisTop) + '.';
+  texto('portada-registros', nf(D.meta.registros) + ' registros procesados');
+  texto('portada-fecha', 'Publicado el ' + fecha);
+  texto('k-mat', nf(K.matriculados));
+  texto('k-ext', nf(K.extranjeros));
+  texto('k-nac', nf(K.nacionalidades));
+  texto('k-prom', dec(K.promIE));
+  texto('k-ie', nf(K.instituciones));
+
+  $('marca-agua').innerHTML = [0, 1, 2, 3, 4].map(function (i) {
+    return '<span class="edu-marca-agua__fila" style="margin-left:' + (i % 2 ? '-0.35em' : '-0.05em') +
+      ';margin-top:' + (i ? '0.06em' : '0') + '">MATRÍCULA MIGRANTE MATRÍCULA MIGRANTE</span>';
+  }).join('');
+
+  /* ------------------------------------------------------------------ mapa */
+  var NS = 'http://www.w3.org/2000/svg';
+  var METRICAS = {
+    ext: { leyenda: 'Estudiantes extranjeros matriculados', d: 0 },
+    promIE: { leyenda: 'Extranjeros por institución educativa', d: 1 }
+  };
+  var porNombre = {};
+  D.comunas.forEach(function (c) { porNombre[c.n] = c; });
+  var estado = { metrica: 'ext', sel: null };
+
+  var G = (function () {
+    var x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    D.geo.forEach(function (f) {
+      f.c.forEach(function (pol) { pol.forEach(function (ring) { ring.forEach(function (p) {
+        if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0];
+        if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1];
+      }); }); });
+    });
+    var W = 560, PAD = 10, kx = Math.cos((y0 + y1) / 2 * Math.PI / 180);
+    var s = (W - PAD * 2) / ((x1 - x0) * kx);
+    var H = Math.round((y1 - y0) * s + PAD * 2);
+    var pr = function (x, y) { return [PAD + (x - x0) * kx * s, PAD + (y1 - y) * s]; };
+    return { W: W, H: H, pr: pr };
+  })();
+
+  var svg = $('mapa');
+  svg.setAttribute('viewBox', '0 0 ' + G.W + ' ' + G.H);
+  var gCom = document.createElementNS(NS, 'g');
+  var gSed = document.createElementNS(NS, 'g');
+  var gEtq = document.createElementNS(NS, 'g');
+  svg.appendChild(gCom); svg.appendChild(gSed); svg.appendChild(gEtq);
+
+  var paths = {};
+  D.geo.forEach(function (f) {
+    var d = '';
+    f.c.forEach(function (pol) { pol.forEach(function (ring) {
+      ring.forEach(function (p, i) { var q = G.pr(p[0], p[1]); d += (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1); });
+      d += 'Z';
+    }); });
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', d);
+    p.setAttribute('class', 'comuna');
+    p.setAttribute('tabindex', '0');
+    p.setAttribute('role', 'button');
+    var c = porNombre[f.n];
+    p.setAttribute('aria-label', nom(f.n) + ': ' + nf(c ? c.ext : null) + ' estudiantes extranjeros');
+    p.dataset.comuna = f.n;
+    gCom.appendChild(p);
+    paths[f.n] = p;
+  });
+
+  // Sedes: solo las que tienen cinco o mas estudiantes extranjeros (ya filtradas en los datos).
+  var maxSede = Math.max.apply(null, D.sedes.ext);
+  for (var i = 0; i < D.sedes.ext.length; i++) {
+    var q = G.pr(D.sedes.lon[i], D.sedes.lat[i]);
+    var ci = document.createElementNS(NS, 'circle');
+    ci.setAttribute('cx', q[0].toFixed(1));
+    ci.setAttribute('cy', q[1].toFixed(1));
+    ci.setAttribute('r', (1.2 + Math.sqrt(D.sedes.ext[i] / maxSede) * 6).toFixed(1));
+    ci.setAttribute('fill', 'var(--naranja-158)');
+    ci.setAttribute('fill-opacity', '0.5');
+    ci.setAttribute('stroke', '#fff');
+    ci.setAttribute('stroke-width', '0.4');
+    ci.setAttribute('pointer-events', 'none');
+    gSed.appendChild(ci);
+  }
+
+  // Etiquetas: separacion por relajamiento para que ningun nombre tape a otro.
+  (function () {
+    var ls = D.geo.map(function (f) {
+      var q = G.pr(f.cx, f.cy);
+      var t = nom(f.n.length > 15 ? f.n.split(' ')[0] : f.n);
+      return { x: q[0], y: q[1], t: t, w: t.length * 4.3, h: 9.6 };
+    });
+    for (var it = 0; it < 60; it++) {
+      var movio = false;
+      for (var a = 0; a < ls.length; a++) {
+        for (var b = a + 1; b < ls.length; b++) {
+          var A = ls[a], B = ls[b];
+          var dx = (A.w + B.w) / 2 - Math.abs(A.x - B.x);
+          var dy = (A.h + B.h) / 2 - Math.abs(A.y - B.y);
+          if (dx <= 0 || dy <= 0) continue;
+          var e = dy / 2 + 0.15, dir = A.y <= B.y ? 1 : -1;
+          A.y -= e * dir; B.y += e * dir; movio = true;
+        }
+      }
+      if (!movio) break;
+    }
+    ls.forEach(function (l) {
+      var t = document.createElementNS(NS, 'text');
+      t.setAttribute('x', l.x.toFixed(1));
+      t.setAttribute('y', Math.max(6, Math.min(G.H - 3, l.y)).toFixed(1));
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('class', 'etiqueta');
+      t.textContent = l.t;
+      gEtq.appendChild(t);
+    });
+  })();
+
+  function cortes(vals) {
+    var v = vals.slice().sort(function (a, b) { return a - b; });
+    return RAMPA.map(function (_, i) { return v[Math.min(v.length - 1, Math.floor((i + 1) / RAMPA.length * (v.length - 1)))]; });
+  }
+  function color(val, ct) {
+    for (var i = 0; i < ct.length; i++) if (val <= ct[i]) return RAMPA[i];
+    return RAMPA[RAMPA.length - 1];
+  }
+
+  function pintarMapa() {
+    var mk = estado.metrica, M = METRICAS[mk];
+    var vals = D.comunas.map(function (c) { return c[mk]; });
+    var ct = cortes(vals);
+    Object.keys(paths).forEach(function (n) {
+      var c = porNombre[n], p = paths[n], sel = estado.sel === n;
+      p.setAttribute('fill', c ? color(c[mk], ct) : 'var(--superficie-hundida)');
+      p.setAttribute('stroke', sel ? 'var(--azul-306-profundo)' : '#fff');
+      p.setAttribute('stroke-width', sel ? '2.4' : '0.8');
+      p.setAttribute('aria-pressed', sel ? 'true' : 'false');
+    });
+    texto('leyenda-titulo', M.leyenda);
+    texto('leyenda-min', dec(Math.min.apply(null, vals), M.d));
+    texto('leyenda-max', dec(Math.max.apply(null, vals), M.d));
+    document.querySelectorAll('#pestanas .edu-pestanas__boton').forEach(function (b) {
+      b.setAttribute('aria-selected', b.dataset.metrica === mk ? 'true' : 'false');
+    });
+  }
+
+  function fila(k, v, marca) {
+    return '<li><span>' + esc(k) + '</span><b' + (marca ? ' class="marca"' : '') + '>' + esc(v) + '</b></li>';
+  }
+  function pintarPanel() {
+    var c = estado.sel ? porNombre[estado.sel] : null;
+    if (!c) {
+      texto('panel-titulo', 'Ciudad completa');
+      texto('panel-etiqueta', D.comunas.length + ' divisiones');
+      $('panel-filas').innerHTML =
+        fila('Matriculados', nf(K.matriculados)) +
+        fila('Estudiantes extranjeros', nf(K.extranjeros), true) +
+        fila('Instituciones educativas', nf(K.instituciones)) +
+        fila('Promedio por I. E.', dec(K.promIE), true);
+      texto('panel-nota', 'Seleccione una comuna o corregimiento en el mapa para consultar su detalle.');
+      return;
+    }
+    texto('panel-titulo', nom(c.n));
+    texto('panel-etiqueta', dec(c.promIE) + ' por I. E.');
+    $('panel-filas').innerHTML =
+      fila('Matriculados', nf(c.mat)) +
+      fila('Estudiantes extranjeros', nf(c.ext), true) +
+      fila('Instituciones educativas', nf(c.ie)) +
+      fila('I. E. con matrícula migrante', c.ieMig + ' de ' + c.ie) +
+      fila('Promedio por I. E.', dec(c.promIE), true);
+    texto('panel-nota', c.ieMig + ' de las ' + c.ie + ' instituciones de la división atienden población extranjera. Seleccione de nuevo la división para volver a la ciudad completa.');
+  }
+
+  function seleccionar(n) {
+    estado.sel = estado.sel === n ? null : n;
+    pintarMapa();
+    pintarPanel();
+  }
+
+  var aviso = $('aviso-mapa');
+  svg.addEventListener('click', function (ev) {
+    var p = ev.target.closest('.comuna');
+    if (p) seleccionar(p.dataset.comuna);
+  });
+  svg.addEventListener('keydown', function (ev) {
+    var p = ev.target.closest('.comuna');
+    if (p && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); seleccionar(p.dataset.comuna); }
+  });
+  svg.addEventListener('mousemove', function (ev) {
+    var p = ev.target.closest('.comuna');
+    if (!p) { aviso.style.opacity = 0; return; }
+    var c = porNombre[p.dataset.comuna];
+    aviso.innerHTML = '<b>' + esc(nom(p.dataset.comuna)) + '</b><br>' + nf(c.ext) + ' estudiantes extranjeros<br>' + dec(c.promIE) + ' por institución educativa';
+    var x = Math.min(ev.clientX + 14, window.innerWidth - 256);
+    var y = ev.clientY + 16 + 90 > window.innerHeight ? ev.clientY - 90 : ev.clientY + 16;
+    aviso.style.left = x + 'px';
+    aviso.style.top = y + 'px';
+    aviso.style.opacity = 1;
+  });
+  svg.addEventListener('mouseleave', function () { aviso.style.opacity = 0; });
+
+  document.querySelectorAll('#pestanas .edu-pestanas__boton').forEach(function (b) {
+    b.addEventListener('click', function () { estado.metrica = b.dataset.metrica; pintarMapa(); });
+  });
+  $('ver-sedes').addEventListener('change', function (ev) {
+    gSed.setAttribute('display', ev.target.checked ? 'inline' : 'none');
+  });
+
+  pintarMapa();
+  pintarPanel();
+
+  /* --------------------------------------------------------- comunas */
+  var porExt = D.comunas.slice().sort(function (a, b) { return b.ext - a.ext; });
+  var porProm = D.comunas.slice().sort(function (a, b) { return b.promIE - a.promIE; });
+
+  function barras(lista, max, colorBarra, valor, extra) {
+    return lista.map(function (x) {
+      var ancho = Math.max(0.6, x.v / max * 100).toFixed(1);
+      return '<tr><th scope="row">' + esc(x.n) + '</th>' +
+        '<td class="pista"><span><i style="width:' + ancho + '%;background:' + colorBarra + '"></i></span></td>' +
+        '<td class="valor">' + esc(valor(x)) + '</td>' +
+        (extra ? '<td class="secundario">' + esc(extra(x)) + '</td>' : '') + '</tr>';
+    }).join('');
+  }
+
+  $('rank-ext').innerHTML = barras(porExt.map(function (c) { return { n: nom(c.n), v: c.ext }; }),
+    porExt[0].ext, '#0b6ea8', function (x) { return nf(x.v); });
+  $('rank-prom').innerHTML = barras(porProm.map(function (c) { return { n: nom(c.n), v: c.promIE }; }),
+    porProm[0].promIE, '#00aeef', function (x) { return dec(x.v); });
+
+  // Lectura: la division donde mas se separan los dos ordenes.
+  (function () {
+    var rE = {}, rP = {};
+    porExt.forEach(function (c, i) { rE[c.n] = i + 1; });
+    porProm.forEach(function (c, i) { rP[c.n] = i + 1; });
+    var ej = D.comunas.slice().sort(function (a, b) {
+      return Math.abs(rE[b.n] - rP[b.n]) - Math.abs(rE[a.n] - rP[a.n]);
+    })[0];
+    var diluye = rE[ej.n] < rP[ej.n];
+    texto('lectura-comunas', nom(ej.n) + ' es la ' + ordinal(rE[ej.n]) + ' división en volumen, con ' + nf(ej.ext) +
+      ' estudiantes extranjeros, ' + (diluye ? 'y la ' : 'pero la ') + ordinal(rP[ej.n]) + ' en promedio por institución, con ' +
+      dec(ej.promIE) + ': ' + (diluye
+        ? 'esa población se reparte entre ' + ej.ie + ' instituciones educativas.'
+        : 'sus ' + ej.ie + ' instituciones educativas concentran esa población.') +
+      ' La planeación de cupos y de acompañamiento requiere leer los dos órdenes a la vez.');
+
+    var top3 = porExt.slice(0, 3), suma = top3.reduce(function (a, b) { return a + b.ext; }, 0);
+    var nombres = top3.map(function (c) { return nom(c.n); });
+    texto('lectura-territorio', nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1] + ' concentran ' +
+      nf(suma) + ' estudiantes extranjeros, el ' + pc(suma / K.extranjeros * 100) + ' del total de la ciudad. ' +
+      nom(porProm[0].n) + ' registra el mayor promedio: ' + dec(porProm[0].promIE) + ' estudiantes extranjeros por institución educativa.');
+  })();
+
+  $('tabla-comunas').innerHTML = porExt.map(function (c) {
+    return '<tr><td class="nombre corto">' + esc(nom(c.n)) + '</td>' +
+      '<td class="num">' + nf(c.mat) + '</td>' +
+      '<td class="num fuerte">' + nf(c.ext) + '</td>' +
+      '<td class="num">' + nf(c.ie) + '</td>' +
+      '<td class="num">' + nf(c.ieMig) + '</td>' +
+      '<td class="num">' + dec(c.promIE) + '</td></tr>';
+  }).join('');
+
+  /* ---------------------------------------------------- instituciones */
+  var ies = D.ie.slice().sort(function (a, b) { return b.ext - a.ext; });
+  $('tabla-ie').innerHTML = ies.map(function (x) {
+    return '<tr><td class="nombre ie">' + esc(nomIE(x.n)) + '</td>' +
+      '<td class="corto">' + esc(nom(x.c)) + '</td>' +
+      '<td class="corto">' + esc(nom(x.barrio)) + '</td>' +
+      '<td class="corto apagado">' + esc(nom(x.s)) + '</td>' +
+      '<td class="num">' + nf(x.sedes) + '</td>' +
+      '<td class="num">' + nf(x.grupos) + '</td>' +
+      '<td class="num">' + nf(x.mat) + '</td>' +
+      '<td class="num fuerte">' + nf(x.ext) + '</td></tr>';
+  }).join('');
+  var ieTop = ies[0];
+  texto('nota-ie', 'Se muestran las ' + ies.length + ' instituciones con mayor matrícula extranjera de las ' + nf(K.instituciones) +
+    ' del directorio. La ' + nomIE(ieTop.n) + ', en ' + nom(ieTop.c) + ', atiende ' + nf(ieTop.ext) +
+    ' estudiantes extranjeros en ' + ieTop.sedes + (ieTop.sedes === 1 ? ' sede.' : ' sedes.'));
+
+  /* ------------------------------------------------------- composicion */
+  texto('nac-top-pct', pc(nacTop.pct));
+  texto('nac-top-nombre', paisTop);
+  texto('nac-top-n', nf(nacTop.e) + ' estudiantes');
+  var resto = D.nacion.slice(1);
+  $('nac-resto').innerHTML = barras(resto.map(function (x) { return { n: PAISES[x.p] || nom(x.p), v: x.e, pct: x.pct }; }),
+    resto.length ? resto[0].e : 1, '#54c1ea', function (x) { return nf(x.v); }, function (x) { return pc(x.pct, 2); });
+
+  var mods = D.modelos.slice().sort(function (a, b) { return b.ext - a.ext; });
+  $('modelos').innerHTML = barras(mods.map(function (m) { return { n: MODELOS[m.m] || nom(m.m), v: m.ext, pct: m.pct }; }),
+    mods[0].ext, '#0b6ea8', function (x) { return nf(x.v); }, function (x) { return pc(x.pct); });
+  if (mods.length > 1) {
+    texto('nota-modelos', (MODELOS[mods[0].m] || nom(mods[0].m)) + ' reúne ' + nf(mods[0].ext) + ' estudiantes extranjeros, el ' +
+      pc(mods[0].pct) + ' del total. Le sigue ' + (MODELOS[mods[1].m] || nom(mods[1].m)) + ', con ' + nf(mods[1].ext) +
+      ' (' + pc(mods[1].pct) + '). La columna de la derecha indica el peso de cada modelo sobre la población extranjera matriculada.');
+  }
+
+  /* ------------------------------------------------------ metodologia y pie */
+  texto('fecha-corte', fecha);
+  texto('vigencia', D.meta.vigencia);
+  texto('pie-nota', 'Fuente: SIMAT vigencia ' + D.meta.vigencia + ' (' + nf(D.meta.registros) + ' registros) y Directorio Único de Establecimientos. ' +
+    'Geometría de comunas y corregimientos: ' + D.meta.geoFuente + ', EPSG:4326. Cobertura territorial ' + pc(D.meta.cobertura, 0) +
+    '. Procesado el ' + fecha + '. Solo se publican cifras agregadas de ' + D.meta.umbral + ' o más estudiantes extranjeros.');
+})();
+</script>
+</body>
+</html>

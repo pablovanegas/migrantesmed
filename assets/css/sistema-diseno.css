@@ -1,0 +1,467 @@
+/* Sistema de diseño Educación Medellín — tokens y componentes.
+   Consolidado desde el paquete del sistema para publicar sin dependencias. */
+
+
+/* ---- tokens/fuentes.css ---- */
+/* Metropolis — tipografía principal de la Alcaldía de Medellín (Manual de Identidad Visual v20, §2.1).
+   Chris Simpson / TypeHaus, dominio público (Unlicense). Archivos .woff en assets/fonts/.
+   Arial Bold NO se declara aquí: está reservada exclusivamente al logotipo y no debe usarse en piezas. */
+@font-face{font-family:"Metropolis";font-style:normal;font-weight:400;font-display:swap;src:url("../fonts/Metropolis-Regular.woff") format("woff")}
+@font-face{font-family:"Metropolis";font-style:normal;font-weight:500;font-display:swap;src:url("../fonts/Metropolis-Medium.woff") format("woff")}
+@font-face{font-family:"Metropolis";font-style:normal;font-weight:600;font-display:swap;src:url("../fonts/Metropolis-SemiBold.woff") format("woff")}
+@font-face{font-family:"Metropolis";font-style:normal;font-weight:700;font-display:swap;src:url("../fonts/Metropolis-Bold.woff") format("woff")}
+@font-face{font-family:"Metropolis";font-style:normal;font-weight:800;font-display:swap;src:url("../fonts/Metropolis-ExtraBold.woff") format("woff")}
+@font-face{font-family:"Metropolis";font-style:normal;font-weight:900;font-display:swap;src:url("../fonts/Metropolis-Black.woff") format("woff")}
+
+
+/* ---- tokens/color-institucional.css ---- */
+/* Paleta institucional Alcaldía de Medellín.
+   Fuente: Manual de Identidad Visual v20 — §1.4 Escudo de armas (paletas complementarias)
+   y §1.5 Bandera de Medellín. Cada color trae su referencia Pantone y su tinte oscuro
+   ("porcentaje de color primario") tal como aparecen impresos en el manual. */
+:root{
+  /* Escudo de armas — paletas complementarias */
+  --azul-306:#00aeef;            /* Pantone 306 C — C100 M0 Y0 K0 */
+  --azul-306-profundo:#003a57;   /* tinte oscuro asociado */
+  --amarillo-115:#ffdc2f;        /* Pantone 115 C — C0 M11 Y90 K0 */
+  --amarillo-115-profundo:#fcc62b;
+  --morado-7647:#ae3e97;         /* Pantone 7647 C — C33 M90 Y0 K0 */
+  --morado-7647-profundo:#832f71;
+  --aqua-7710:#00a7b8;           /* Pantone 7710 C — C100 M0 Y30 K2 */
+  --aqua-7710-profundo:#002a2e;
+  --naranja-158:#f47b29;         /* Pantone 158 C — C0 M64 Y95 K0 */
+  --naranja-158-profundo:#f16729;
+  --gris-cool-6:#a7a9ab;         /* Pantone Cool Gray 6 C — K40 */
+  --negro-marca:#231f20;         /* tinta 100 % del manual */
+
+  /* Bandera de Medellín — §1.5 */
+  --verde-347:#00904c;           /* Pantone 347 C — C100 M20 Y100 K0 */
+  --blanco:#ffffff;
+
+  /* Contenedor de marca — color medido del archivo oficial del logo sobre contenedor */
+  --azul-contenedor:#00abed;
+}
+
+
+/* ---- tokens/color-programa.css ---- */
+/* Paleta de programa — Secretaría de Educación.
+   Fuente: "Guía de uso — En el Colegio Contamos con Vos" (pág. 4, Paleta de color).
+   Es la paleta con la que se arman las piezas de los programas educativos; convive con la
+   paleta institucional pero NO la reemplaza: el logo de la Alcaldía conserva sus colores. */
+:root{
+  --edu-naranja:#ef7b2c;   /* C0 M61 Y87 K0 — R239 G123 B44 */
+  --edu-morado:#662483;    /* C75 M100 Y0 K0 — R102 G36 B131 */
+  --edu-amarillo:#ffd000;  /* C0 M18 Y100 K0 — R255 G208 B0 */
+  --edu-verde:#7bba48;     /* C58 M0 Y87 K0 — R123 G186 B72 */
+  --edu-azul:#009fe3;      /* C100 M0 Y0 K0 — R0 G159 B227 */
+
+  /* Variantes de trabajo derivadas (sombreado y realce de la misma paleta) */
+  --edu-naranja-claro:#f9a05a;
+  --edu-naranja-oscuro:#c95f18;
+  --edu-morado-claro:#8c47ad;
+  --edu-morado-oscuro:#4a1a60;
+  --edu-azul-claro:#4fc0f0;
+  --edu-azul-oscuro:#0b6ea8;
+  --edu-azul-noche:#063f6b;  /* fondo profundo de las piezas de campaña */
+  --edu-verde-oscuro:#568a2f;
+  --edu-amarillo-oscuro:#e0a800;
+}
+
+
+/* ---- tokens/color-neutro.css ---- */
+/* Neutros — escala de tinta negra del manual (§1.8 aplicación a una sola tinta: K40/60/80/100).
+   K40 coincide exactamente con Pantone Cool Gray 6 C y K100 con el negro de marca #231f20. */
+:root{
+  --tinta-100:#231f20;
+  --tinta-80:#58595b;
+  --tinta-60:#808285;
+  --tinta-40:#a7a9ab;
+  --tinta-25:#c7c8ca;
+  --tinta-15:#dcdddf;
+  --tinta-08:#eceded;
+  --tinta-04:#f5f6f6;
+  --tinta-00:#ffffff;
+}
+
+
+/* ---- tokens/color-semantico.css ---- */
+/* Alias semánticos: es lo que se usa al construir interfaces y piezas.
+   Nunca escribas un hex suelto — siempre un alias de este archivo. */
+:root{
+  /* Texto */
+  --texto-principal:var(--tinta-100);
+  --texto-secundario:var(--tinta-80);
+  --texto-apoyo:var(--tinta-60);
+  --texto-inverso:var(--tinta-00);
+  --texto-marca:var(--azul-306-profundo);
+  --texto-enlace:#0b6ea8;
+  --texto-enlace-hover:var(--azul-306-profundo);
+  --texto-sobre-color:var(--tinta-00);
+  --texto-destacado:var(--edu-naranja-oscuro);
+
+  /* Superficies */
+  --superficie-pagina:var(--tinta-00);
+  --superficie-sutil:var(--tinta-04);
+  --superficie-hundida:var(--tinta-08);
+  --superficie-tarjeta:var(--tinta-00);
+  --superficie-marca:var(--azul-306);
+  --superficie-marca-profunda:var(--azul-306-profundo);
+  --superficie-campana:var(--edu-azul-noche);
+  --superficie-acento:var(--edu-naranja);
+  --superficie-atenuada:rgba(255,255,255,.12);
+
+  /* Bordes */
+  --borde-sutil:var(--tinta-15);
+  --borde-medio:var(--tinta-25);
+  --borde-fuerte:var(--tinta-40);
+  --borde-marca:var(--azul-306);
+  --borde-inverso:rgba(255,255,255,.55);
+  --borde-guia:rgba(255,255,255,.75);   /* trazo de contenedores y líneas punteadas en piezas */
+
+  /* Acción */
+  --accion-primaria:var(--edu-naranja);
+  --accion-primaria-hover:var(--edu-naranja-oscuro);
+  --accion-primaria-activa:#b45414;
+  --accion-primaria-texto:var(--tinta-00);
+  --accion-secundaria:var(--azul-306);
+  --accion-secundaria-hover:#0b8fc4;
+  --accion-secundaria-texto:var(--tinta-00);
+  --accion-desactivada:var(--tinta-15);
+  --accion-desactivada-texto:var(--tinta-60);
+  --anillo-foco:0 0 0 3px rgba(0,174,239,.45);
+
+  /* Estados / mensajes */
+  --estado-exito:var(--verde-347);
+  --estado-exito-fondo:#e6f4ec;
+  --estado-atencion:var(--amarillo-115-profundo);
+  --estado-atencion-fondo:#fff6dc;
+  --estado-error:#c0272d;
+  --estado-error-fondo:#fbeaea;
+  --estado-info:var(--azul-306);
+  --estado-info-fondo:#e4f6fd;
+  --estado-legal:var(--morado-7647);
+  --estado-legal-fondo:#f6eaf4;
+}
+
+
+/* ---- tokens/tipografia.css ---- */
+/* Tipografía — Metropolis en toda pieza y toda interfaz (Manual §2.1).
+   Regla del manual §3.4: los títulos son cortos y se usan máximo dos tamaños por pieza. */
+:root{
+  --fuente-principal:"Metropolis","Helvetica Neue",Helvetica,sans-serif; /* @kind font */
+  --fuente-logo:Arial,Helvetica,sans-serif; /* @kind font */ /* solo el logotipo; no usar en textos */
+  --fuente-mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace; /* @kind font */
+
+  --peso-regular:400; /* @kind font */
+  --peso-medium:500; /* @kind font */    /* texto de párrafo — Guía CCV */
+  --peso-semibold:600; /* @kind font */  /* vallas y rótulos — Manual §3.4 */
+  --peso-bold:700; /* @kind font */
+  --peso-extrabold:800; /* @kind font */
+  --peso-black:900; /* @kind font */     /* títulos de campaña — Guía CCV */
+
+  --tam-display-1:72px;
+  --tam-display-2:56px;
+  --tam-titulo-1:40px;
+  --tam-titulo-2:32px;
+  --tam-titulo-3:24px;
+  --tam-titulo-4:20px;
+  --tam-cuerpo-lg:18px;
+  --tam-cuerpo:16px;
+  --tam-cuerpo-sm:14px;
+  --tam-etiqueta:13px;
+  --tam-micro:11px;
+
+  --interlineado-display:1.02; /* @kind font */
+  --interlineado-titulo:1.16; /* @kind font */
+  --interlineado-compacto:1.35; /* @kind font */
+  --interlineado-cuerpo:1.55; /* @kind font */
+  --interlineado-amplio:1.7; /* @kind font */
+
+  --tracking-display:-0.02em; /* @kind font */
+  --tracking-titulo:-0.01em; /* @kind font */
+  --tracking-normal:0; /* @kind font */
+  --tracking-etiqueta:0.08em; /* @kind font */   /* rótulos en mayúscula */
+  --tracking-institucional:0.16em; /* @kind font */ /* "DISTRITO DE CIENCIA, TECNOLOGÍA E INNOVACIÓN" */
+}
+
+
+/* ---- tokens/espaciado.css ---- */
+/* Espaciado — base 4 px. La unidad "X" es la del área de protección del logo (Manual §1.2)
+   y se usa para separar el logo de cualquier otro elemento. */
+:root{
+  --esp-0:0px;
+  --esp-1:4px;
+  --esp-2:8px;
+  --esp-3:12px;
+  --esp-4:16px;
+  --esp-5:20px;
+  --esp-6:24px;
+  --esp-7:28px;
+  --esp-8:32px;
+  --esp-10:40px;
+  --esp-12:48px;
+  --esp-14:56px;
+  --esp-16:64px;
+  --esp-20:80px;
+  --esp-24:96px;
+  --esp-32:128px;
+
+  /* Reglas de marca */
+  --area-proteccion:24px;        /* "X" mínima alrededor del logo en pantalla */
+  --logo-ancho-minimo-digital:150px; /* Manual §1.3 — medios digitales */
+  --logo-ancho-minimo-impreso:3.5cm; /* @kind spacing */ /* Manual §1.3 — medios impresos */
+  --franja-cierre:33.333%; /* @kind other */       /* Manual §3.1 — el cierre ocupa 1/3 del ancho de la pieza */
+}
+
+
+/* ---- tokens/radios.css ---- */
+/* Radios. El contenedor de marca (Manual §1.9) tiene las esquinas superiores redondeadas
+   y las inferiores rectas: esa asimetría es un motivo reconocible del sistema.
+   Las píldoras de dato de las piezas de campaña van completamente redondeadas. */
+:root{
+  --radio-0:0px;
+  --radio-xs:4px;
+  --radio-sm:8px;
+  --radio-md:12px;
+  --radio-lg:16px;
+  --radio-xl:24px;
+  --radio-2xl:32px;
+  --radio-pildora:999px;
+  --radio-contenedor:24px 24px 0 0; /* @kind radius */      /* contenedor de marca */
+  --radio-contenedor-grande:64px 64px 0 0; /* @kind radius */
+  --borde-fino:1px;
+  --borde-medio-ancho:2px;
+  --borde-grueso:3px;
+  --borde-trazo-pieza:4px;               /* trazo de contenedores en piezas gráficas */
+}
+
+
+/* ---- tokens/sombras.css ---- */
+/* Sombras — el sistema es de origen impreso, así que la elevación es discreta.
+   En piezas gráficas la sombra solo separa una píldora o un contenedor del fondo. */
+:root{
+  --sombra-0:none; /* @kind shadow */
+  --sombra-sutil:0 1px 2px rgba(35,31,32,.08);
+  --sombra-tarjeta:0 2px 8px rgba(35,31,32,.10);
+  --sombra-elevada:0 8px 24px rgba(35,31,32,.14);
+  --sombra-flotante:0 16px 40px rgba(35,31,32,.18);
+  --sombra-pieza:0 6px 18px rgba(6,63,107,.28);
+  --sombra-interior:inset 0 1px 0 rgba(255,255,255,.4); /* @kind shadow */
+}
+
+
+/* ---- tokens/movimiento.css ---- */
+/* Movimiento — institucional y sobrio: entradas por desvanecido y desplazamientos cortos.
+   Sin rebotes, sin giros, sin efectos elásticos (Manual §6 Audiovisual: animación de marca limpia). */
+:root{
+  --dur-instantanea:80ms; /* @kind other */
+  --dur-rapida:140ms; /* @kind other */
+  --dur-media:220ms; /* @kind other */
+  --dur-lenta:340ms; /* @kind other */
+  --dur-pieza:600ms; /* @kind other */
+  --ease-estandar:cubic-bezier(.2,0,0,1); /* @kind other */
+  --ease-entrada:cubic-bezier(0,0,0,1); /* @kind other */
+  --ease-salida:cubic-bezier(.3,0,1,1); /* @kind other */
+  --ease-lineal:linear; /* @kind other */
+  --desplazamiento-entrada:8px;
+}
+
+
+/* ---- tokens/patrones.css ---- */
+/* Fondos y texturas de las piezas gráficas.
+   Guía CCV, pág. 3 "Elementos gráficos": la cuadrícula va en máscara de transparencia encima
+   del color de fondo y conserva margen arriba y abajo; los contenedores no van en transparencia
+   sino en una escala menor del mismo color. */
+:root{
+  --degradado-campana:radial-gradient(125% 95% at 26% 18%,#0fa8e6 0%,#0a7fc0 42%,#075a92 68%,#063f6b 100%); /* @kind other */
+  --degradado-campana-naranja:radial-gradient(125% 95% at 26% 18%,#f9a05a 0%,#ef7b2c 45%,#d2600f 100%); /* @kind other */
+  --degradado-institucional:linear-gradient(135deg,#00aeef 0%,#0b6ea8 60%,#003a57 100%); /* @kind other */
+  --degradado-proteccion:linear-gradient(180deg,rgba(6,63,107,0) 0%,rgba(6,63,107,.72) 100%); /* @kind other */
+  --cuadricula:repeating-linear-gradient(0deg,rgba(255,255,255,.10) 0 1px,transparent 1px 48px),repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 1px,transparent 1px 48px); /* @kind other */
+  --cuadricula-oscura:repeating-linear-gradient(0deg,rgba(35,31,32,.07) 0 1px,transparent 1px 48px),repeating-linear-gradient(90deg,rgba(35,31,32,.07) 0 1px,transparent 1px 48px); /* @kind other */
+  --marca-agua-opacidad:.07; /* @kind other */
+  --linea-punteada:repeating-linear-gradient(90deg,rgba(255,255,255,.85) 0 10px,transparent 10px 20px); /* @kind other */
+}
+
+
+/* ---- tokens/layout.css ---- */
+/* Layout y formatos. Los tamaños de pieza son los que el manual y la guía nombran. */
+:root{
+  --ancho-contenido:1200px;
+  --ancho-lectura:68ch; /* @kind other */
+  --ancho-barra-lateral:280px;
+  --canal:24px;
+  --columnas:12; /* @kind other */
+  --alto-encabezado:72px;
+  --alto-encabezado-compacto:56px;
+
+  /* Formatos de pieza */
+  --pieza-ecard:1080px;        /* 1080 × 1080 */
+  --pieza-historia-ancho:1080px;
+  --pieza-historia-alto:1920px;
+  --pieza-post-ancho:1080px;
+  --pieza-post-alto:1350px;    /* 4:5 */
+  --diapositiva-ancho:1280px;
+  --diapositiva-alto:720px;
+  --carta-ancho:8.5in; /* @kind other */
+  --carta-alto:11in; /* @kind other */
+}
+
+
+/* ---- componentes/componentes.css ---- */
+/* Estilos de los componentes del sistema. Todo valor sale de un token; aquí no se declara
+   ningún color, radio ni tamaño literal salvo los que el navegador necesita (grosores de 1 px, etc.). */
+
+/* ---------- Base ---------- */
+.edu-raiz,.edu-tipo{font-family:var(--fuente-principal);color:var(--texto-principal);-webkit-font-smoothing:antialiased}
+.edu-foco:focus-visible,.edu-boton:focus-visible,.edu-campo:focus-visible,.edu-casilla input:focus-visible+.edu-casilla__caja,.edu-opcion input:focus-visible+.edu-opcion__caja,.edu-interruptor input:focus-visible+.edu-interruptor__pista{outline:none;box-shadow:var(--anillo-foco)}
+
+/* ---------- Icono ---------- */
+.edu-icono{display:inline-block;flex:none;vertical-align:middle;color:currentColor}
+
+/* ---------- Botón ---------- */
+.edu-boton{font-family:var(--fuente-principal);display:inline-flex;align-items:center;justify-content:center;gap:var(--esp-2);border:var(--borde-medio-ancho) solid transparent;border-radius:var(--radio-pildora);font-weight:var(--peso-bold);letter-spacing:var(--tracking-normal);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color var(--dur-rapida) var(--ease-estandar),color var(--dur-rapida) var(--ease-estandar),border-color var(--dur-rapida) var(--ease-estandar),transform var(--dur-instantanea) var(--ease-salida)}
+.edu-boton--sm{height:36px;padding:0 var(--esp-4);font-size:var(--tam-cuerpo-sm)}
+.edu-boton--md{height:44px;padding:0 var(--esp-6);font-size:var(--tam-cuerpo)}
+.edu-boton--lg{height:54px;padding:0 var(--esp-8);font-size:var(--tam-cuerpo-lg)}
+.edu-boton--bloque{width:100%}
+.edu-boton--primaria{background:var(--accion-primaria);color:var(--accion-primaria-texto)}
+.edu-boton--primaria:hover{background:var(--accion-primaria-hover)}
+.edu-boton--primaria:active{background:var(--accion-primaria-activa);transform:translateY(1px)}
+.edu-boton--secundaria{background:var(--accion-secundaria);color:var(--accion-secundaria-texto)}
+.edu-boton--secundaria:hover{background:var(--accion-secundaria-hover)}
+.edu-boton--secundaria:active{background:var(--azul-306-profundo);transform:translateY(1px)}
+.edu-boton--contorno{background:transparent;color:var(--texto-marca);border-color:var(--borde-marca)}
+.edu-boton--contorno:hover{background:var(--estado-info-fondo)}
+.edu-boton--contorno:active{transform:translateY(1px)}
+.edu-boton--fantasma{background:transparent;color:var(--texto-secundario)}
+.edu-boton--fantasma:hover{background:var(--superficie-sutil);color:var(--texto-principal)}
+.edu-boton--enlace{background:transparent;color:var(--texto-enlace);height:auto;padding:0;border-radius:var(--radio-xs);text-decoration:underline;text-underline-offset:3px}
+.edu-boton--enlace:hover{color:var(--texto-enlace-hover)}
+.edu-boton--inverso{background:var(--tinta-00);color:var(--texto-marca)}
+.edu-boton--inverso:hover{background:var(--tinta-08)}
+.edu-boton[disabled],.edu-boton[aria-disabled="true"]{background:var(--accion-desactivada);color:var(--accion-desactivada-texto);border-color:transparent;cursor:not-allowed;transform:none}
+
+/* ---------- Botón de icono ---------- */
+.edu-botonicono{display:inline-flex;align-items:center;justify-content:center;border:var(--borde-medio-ancho) solid transparent;border-radius:var(--radio-pildora);background:transparent;color:var(--texto-secundario);cursor:pointer;transition:background-color var(--dur-rapida) var(--ease-estandar),color var(--dur-rapida) var(--ease-estandar)}
+.edu-botonicono--sm{width:36px;height:36px}
+.edu-botonicono--md{width:44px;height:44px}
+.edu-botonicono--lg{width:54px;height:54px}
+.edu-botonicono:hover{background:var(--superficie-sutil);color:var(--texto-principal)}
+.edu-botonicono--solido{background:var(--accion-secundaria);color:var(--accion-secundaria-texto)}
+.edu-botonicono--solido:hover{background:var(--accion-secundaria-hover);color:var(--accion-secundaria-texto)}
+.edu-botonicono--contorno{border-color:var(--borde-medio);color:var(--texto-secundario)}
+.edu-botonicono--inverso{color:var(--texto-inverso)}
+.edu-botonicono--inverso:hover{background:var(--superficie-atenuada);color:var(--texto-inverso)}
+.edu-botonicono[disabled]{color:var(--accion-desactivada-texto);cursor:not-allowed;background:transparent}
+
+/* ---------- Etiqueta ---------- */
+.edu-etiqueta{display:inline-flex;align-items:center;gap:var(--esp-1);border:1px solid transparent;border-radius:var(--radio-pildora);padding:0 var(--esp-3);height:26px;font-size:var(--tam-etiqueta);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;white-space:nowrap}
+.edu-etiqueta--sm{height:22px;padding:0 var(--esp-2);font-size:var(--tam-micro)}
+.edu-etiqueta--cuadrada{border-radius:var(--radio-xs);text-transform:none;letter-spacing:var(--tracking-normal);font-weight:var(--peso-semibold)}
+
+/* ---------- Tarjeta ---------- */
+.edu-tarjeta{display:flex;flex-direction:column;background:var(--superficie-tarjeta);border-radius:var(--radio-lg);overflow:hidden;transition:box-shadow var(--dur-media) var(--ease-estandar),transform var(--dur-media) var(--ease-estandar)}
+.edu-tarjeta--contorno{border:1px solid var(--borde-sutil)}
+.edu-tarjeta--elevada{box-shadow:var(--sombra-tarjeta)}
+.edu-tarjeta--plana{background:var(--superficie-sutil)}
+.edu-tarjeta--marca{background:var(--superficie-marca);color:var(--texto-inverso)}
+.edu-tarjeta--contenedor{border-radius:var(--radio-contenedor)}
+.edu-tarjeta--interactiva{cursor:pointer}
+.edu-tarjeta--interactiva:hover{box-shadow:var(--sombra-elevada);transform:translateY(-2px)}
+.edu-tarjeta__media{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--superficie-hundida)}
+.edu-tarjeta__cuerpo{display:flex;flex-direction:column;gap:var(--esp-2);padding:var(--esp-6)}
+.edu-tarjeta__titulo{margin:0;font-size:var(--tam-titulo-4);font-weight:var(--peso-bold);line-height:var(--interlineado-titulo)}
+.edu-tarjeta__texto{margin:0;font-size:var(--tam-cuerpo-sm);line-height:var(--interlineado-cuerpo);color:var(--texto-secundario)}
+.edu-tarjeta--marca .edu-tarjeta__texto{color:rgba(255,255,255,.9)}
+.edu-tarjeta__pie{display:flex;align-items:center;gap:var(--esp-3);padding:var(--esp-4) var(--esp-6);border-top:1px solid var(--borde-sutil)}
+.edu-tarjeta--marca .edu-tarjeta__pie{border-top-color:var(--borde-inverso)}
+
+/* ---------- Campos ---------- */
+.edu-campogrupo{display:flex;flex-direction:column;gap:var(--esp-2);font-family:var(--fuente-principal)}
+.edu-campogrupo__etiqueta{font-size:var(--tam-cuerpo-sm);font-weight:var(--peso-bold);color:var(--texto-principal)}
+.edu-campogrupo__requerido{color:var(--estado-error);margin-left:2px}
+.edu-campogrupo__ayuda{font-size:var(--tam-etiqueta);line-height:var(--interlineado-compacto);color:var(--texto-apoyo)}
+.edu-campogrupo__error{display:flex;align-items:center;gap:var(--esp-1);font-size:var(--tam-etiqueta);font-weight:var(--peso-semibold);color:var(--estado-error)}
+.edu-campo-envoltura{position:relative;display:flex;align-items:center}
+.edu-campo-envoltura__icono{position:absolute;left:var(--esp-4);color:var(--texto-apoyo);pointer-events:none}
+.edu-campo{width:100%;font-family:var(--fuente-principal);font-size:var(--tam-cuerpo);color:var(--texto-principal);background:var(--superficie-pagina);border:1px solid var(--borde-medio);border-radius:var(--radio-md);padding:0 var(--esp-4);height:48px;transition:border-color var(--dur-rapida) var(--ease-estandar),box-shadow var(--dur-rapida) var(--ease-estandar)}
+.edu-campo--con-icono{padding-left:var(--esp-12)}
+.edu-campo--area{height:auto;min-height:120px;padding:var(--esp-3) var(--esp-4);line-height:var(--interlineado-cuerpo);resize:vertical}
+.edu-campo::placeholder{color:var(--texto-apoyo)}
+.edu-campo:hover{border-color:var(--borde-fuerte)}
+.edu-campo:focus{outline:none;border-color:var(--borde-marca);box-shadow:var(--anillo-foco)}
+.edu-campo[aria-invalid="true"]{border-color:var(--estado-error)}
+.edu-campo[disabled]{background:var(--superficie-hundida);color:var(--texto-apoyo);cursor:not-allowed}
+.edu-selector{appearance:none;background-image:none;padding-right:var(--esp-10);cursor:pointer}
+.edu-selector-envoltura{position:relative;display:flex;align-items:center}
+.edu-selector-envoltura__flecha{position:absolute;right:var(--esp-4);color:var(--texto-secundario);pointer-events:none}
+
+/* ---------- Casilla / Opción / Interruptor ---------- */
+.edu-casilla,.edu-opcion{display:inline-flex;align-items:flex-start;gap:var(--esp-3);cursor:pointer;font-family:var(--fuente-principal);font-size:var(--tam-cuerpo);line-height:var(--interlineado-compacto)}
+.edu-casilla input,.edu-opcion input,.edu-interruptor input{position:absolute;opacity:0;width:0;height:0}
+.edu-casilla__caja{flex:none;width:22px;height:22px;margin-top:1px;border:var(--borde-medio-ancho) solid var(--borde-fuerte);border-radius:var(--radio-xs);background:var(--superficie-pagina);display:flex;align-items:center;justify-content:center;color:transparent;transition:background-color var(--dur-rapida) var(--ease-estandar),border-color var(--dur-rapida) var(--ease-estandar)}
+.edu-casilla input:checked+.edu-casilla__caja{background:var(--accion-secundaria);border-color:var(--accion-secundaria);color:var(--texto-inverso)}
+.edu-casilla input:disabled+.edu-casilla__caja{background:var(--superficie-hundida);border-color:var(--borde-medio)}
+.edu-opcion__caja{flex:none;width:22px;height:22px;margin-top:1px;border:var(--borde-medio-ancho) solid var(--borde-fuerte);border-radius:var(--radio-pildora);background:var(--superficie-pagina);display:flex;align-items:center;justify-content:center;transition:border-color var(--dur-rapida) var(--ease-estandar)}
+.edu-opcion__punto{width:10px;height:10px;border-radius:var(--radio-pildora);background:var(--accion-secundaria);transform:scale(0);transition:transform var(--dur-rapida) var(--ease-estandar)}
+.edu-opcion input:checked+.edu-opcion__caja{border-color:var(--accion-secundaria)}
+.edu-opcion input:checked+.edu-opcion__caja .edu-opcion__punto{transform:scale(1)}
+.edu-interruptor{display:inline-flex;align-items:center;gap:var(--esp-3);cursor:pointer;font-family:var(--fuente-principal);font-size:var(--tam-cuerpo)}
+.edu-interruptor__pista{position:relative;flex:none;width:48px;height:28px;border-radius:var(--radio-pildora);background:var(--tinta-25);transition:background-color var(--dur-media) var(--ease-estandar)}
+.edu-interruptor__perilla{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:var(--radio-pildora);background:var(--tinta-00);box-shadow:var(--sombra-sutil);transition:transform var(--dur-media) var(--ease-estandar)}
+.edu-interruptor input:checked+.edu-interruptor__pista{background:var(--accion-secundaria)}
+.edu-interruptor input:checked+.edu-interruptor__pista .edu-interruptor__perilla{transform:translateX(20px)}
+.edu-interruptor input:disabled+.edu-interruptor__pista{background:var(--borde-sutil);cursor:not-allowed}
+
+/* ---------- Aviso / Nota legal ---------- */
+.edu-aviso{display:flex;gap:var(--esp-3);padding:var(--esp-4) var(--esp-5);border-radius:var(--radio-md);border-left:none;font-family:var(--fuente-principal);font-size:var(--tam-cuerpo-sm);line-height:var(--interlineado-cuerpo)}
+.edu-aviso__icono{flex:none;margin-top:2px}
+.edu-aviso__titulo{margin:0 0 var(--esp-1);font-size:var(--tam-cuerpo);font-weight:var(--peso-bold)}
+.edu-aviso__cuerpo{margin:0}
+.edu-nota-legal{font-family:var(--fuente-principal);font-size:var(--tam-etiqueta);line-height:var(--interlineado-cuerpo);color:var(--texto-apoyo);border-top:1px solid var(--borde-sutil);padding-top:var(--esp-3)}
+.edu-nota-legal strong{color:var(--texto-secundario);font-weight:var(--peso-semibold)}
+
+/* ---------- Navegación ---------- */
+.edu-encabezado{display:flex;align-items:center;gap:var(--esp-8);padding:var(--esp-4) var(--esp-8);background:var(--superficie-pagina);border-bottom:1px solid var(--borde-sutil)}
+.edu-encabezado--marca{background:var(--superficie-marca);border-bottom-color:transparent;color:var(--texto-inverso)}
+.edu-encabezado__nav{display:flex;align-items:center;gap:var(--esp-6);margin-left:auto}
+.edu-encabezado__enlace{font-size:var(--tam-cuerpo-sm);font-weight:var(--peso-semibold);color:var(--texto-secundario);text-decoration:none;padding:var(--esp-2) 0;border-bottom:var(--borde-medio-ancho) solid transparent;transition:color var(--dur-rapida) var(--ease-estandar),border-color var(--dur-rapida) var(--ease-estandar)}
+.edu-encabezado__enlace:hover{color:var(--texto-principal);border-bottom-color:var(--borde-medio)}
+.edu-encabezado__enlace[aria-current="page"]{color:var(--texto-marca);border-bottom-color:var(--borde-marca)}
+.edu-encabezado--marca .edu-encabezado__enlace{color:rgba(255,255,255,.86)}
+.edu-encabezado--marca .edu-encabezado__enlace:hover,.edu-encabezado--marca .edu-encabezado__enlace[aria-current="page"]{color:var(--texto-inverso);border-bottom-color:var(--texto-inverso)}
+.edu-migas{display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-2);font-family:var(--fuente-principal);font-size:var(--tam-cuerpo-sm);color:var(--texto-apoyo)}
+.edu-migas a{color:var(--texto-enlace);text-decoration:none}
+.edu-migas a:hover{text-decoration:underline;color:var(--texto-enlace-hover)}
+.edu-migas__actual{color:var(--texto-principal);font-weight:var(--peso-semibold)}
+.edu-pestanas{display:flex;gap:var(--esp-1);border-bottom:1px solid var(--borde-sutil);font-family:var(--fuente-principal)}
+.edu-pestanas__boton{appearance:none;background:transparent;border:none;border-bottom:var(--borde-grueso) solid transparent;padding:var(--esp-3) var(--esp-5);font-family:inherit;font-size:var(--tam-cuerpo-sm);font-weight:var(--peso-semibold);color:var(--texto-secundario);cursor:pointer;transition:color var(--dur-rapida) var(--ease-estandar),border-color var(--dur-rapida) var(--ease-estandar)}
+.edu-pestanas__boton:hover{color:var(--texto-principal)}
+.edu-pestanas__boton[aria-selected="true"]{color:var(--texto-marca);border-bottom-color:var(--borde-marca)}
+.edu-pie{background:var(--superficie-marca-profunda);color:var(--texto-inverso);padding:var(--esp-12) var(--esp-8) var(--esp-8);font-family:var(--fuente-principal)}
+.edu-pie a{color:rgba(255,255,255,.88);text-decoration:none;font-size:var(--tam-cuerpo-sm)}
+.edu-pie a:hover{color:var(--texto-inverso);text-decoration:underline}
+
+/* ---------- Diálogo ---------- */
+.edu-dialogo-fondo{position:fixed;inset:0;background:rgba(6,63,107,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:var(--esp-6);z-index:60}
+.edu-dialogo{background:var(--superficie-tarjeta);border-radius:var(--radio-lg);box-shadow:var(--sombra-flotante);width:min(560px,100%);max-height:86vh;overflow:auto;font-family:var(--fuente-principal)}
+.edu-dialogo__encabezado{display:flex;align-items:flex-start;gap:var(--esp-4);padding:var(--esp-6) var(--esp-6) var(--esp-3)}
+.edu-dialogo__titulo{margin:0;font-size:var(--tam-titulo-3);font-weight:var(--peso-bold);line-height:var(--interlineado-titulo)}
+.edu-dialogo__cuerpo{padding:0 var(--esp-6) var(--esp-6);font-size:var(--tam-cuerpo);line-height:var(--interlineado-cuerpo);color:var(--texto-secundario)}
+.edu-dialogo__pie{display:flex;justify-content:flex-end;gap:var(--esp-3);padding:var(--esp-4) var(--esp-6);border-top:1px solid var(--borde-sutil)}
+
+/* ---------- Piezas gráficas ---------- */
+.edu-pildora{display:flex;align-items:center;gap:var(--esp-4);font-family:var(--fuente-principal)}
+.edu-pildora__cuerpo{flex:1;min-width:0;display:block;text-align:center;border-radius:var(--radio-pildora);padding:var(--esp-3) var(--esp-6);color:var(--texto-inverso);font-size:var(--tam-titulo-4);font-weight:var(--peso-medium);line-height:var(--interlineado-compacto);box-shadow:var(--sombra-pieza)}
+.edu-pildora__disco{flex:none;width:76px;height:76px;border-radius:var(--radio-pildora);background:var(--tinta-00);display:flex;align-items:center;justify-content:center;box-shadow:var(--sombra-pieza)}
+.edu-pildora__etiqueta{font-size:var(--tam-cuerpo-lg);font-weight:var(--peso-bold);color:var(--texto-inverso);margin:0 0 var(--esp-2)}
+.edu-contenedor-marca{border-radius:var(--radio-contenedor)}
+.edu-marca-agua{position:absolute;inset:0;overflow:hidden;pointer-events:none;user-select:none}
+.edu-marca-agua__fila{display:block;white-space:nowrap;font-weight:var(--peso-black);text-transform:uppercase;color:var(--tinta-00);line-height:1}
+.edu-cierre{display:flex;align-items:stretch;gap:var(--esp-6);font-family:var(--fuente-principal)}
+.edu-cierre__grupo{display:flex;flex-direction:column;gap:var(--esp-2)}
+.edu-cierre__rol{font-size:var(--tam-etiqueta);font-weight:var(--peso-semibold);color:var(--texto-secundario)}
+.edu-cierre__logos{display:flex;align-items:center;gap:var(--esp-5)}
+.edu-cierre__divisor{width:1px;background:var(--borde-medio);align-self:stretch;margin:0 var(--esp-2)}
+.edu-cierre__marcador{display:flex;align-items:center;justify-content:center;padding:var(--esp-2) var(--esp-4);border:1px dashed var(--borde-fuerte);border-radius:var(--radio-xs);font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--texto-apoyo);min-height:48px;text-align:center}
