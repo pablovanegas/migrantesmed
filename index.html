@@ -42,9 +42,9 @@
 
   /* ---------- cifras ---------- */
   .cifras{position:relative;z-index:2;margin-top:-64px}
-  .cifras-rejilla{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--borde-sutil);border-radius:var(--radio-contenedor);overflow:hidden;box-shadow:var(--sombra-tarjeta)}
-  @media (max-width:1100px){.cifras-rejilla{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  @media (max-width:640px){.cifras-rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}.cifra:last-child{grid-column:1/-1}}
+  .cifras-rejilla{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--borde-sutil);border-radius:var(--radio-contenedor);overflow:hidden;box-shadow:var(--sombra-tarjeta)}
+  @media (max-width:900px){.cifras-rejilla{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:420px){.cifras-rejilla{grid-template-columns:1fr}}
   .cifra{background:var(--superficie-tarjeta);padding:var(--esp-6) var(--esp-5);min-width:0}
   .cifra-rotulo{display:block;font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--texto-apoyo)}
   .cifra-valor{display:block;margin:var(--esp-3) 0 var(--esp-2);font-size:clamp(1.6rem,2.6vw,var(--tam-titulo-2));font-weight:var(--peso-black);line-height:1.05;color:var(--texto-marca);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -176,11 +176,10 @@
 
   <div class="contenido cifras">
     <div class="cifras-rejilla">
-      <div class="cifra"><span class="cifra-rotulo">Matriculados</span><b class="cifra-valor" id="k-mat">—</b><span class="cifra-apoyo">matrícula total del Distrito</span></div>
+      <div class="cifra"><span class="cifra-rotulo">Matriculados</span><b class="cifra-valor" id="k-mat">—</b><span class="cifra-apoyo" id="k-mat-apoyo">matrícula total del Distrito</span></div>
       <div class="cifra"><span class="cifra-rotulo">Estudiantes extranjeros</span><b class="cifra-valor" id="k-ext">—</b><span class="cifra-apoyo">con país de origen distinto de Colombia</span></div>
       <div class="cifra"><span class="cifra-rotulo">Nacionalidades</span><b class="cifra-valor" id="k-nac">—</b><span class="cifra-apoyo">países de origen distintos</span></div>
-      <div class="cifra"><span class="cifra-rotulo">Promedio por I. E.</span><b class="cifra-valor" id="k-prom">—</b><span class="cifra-apoyo">extranjeros por institución</span></div>
-      <div class="cifra"><span class="cifra-rotulo">Instituciones</span><b class="cifra-valor" id="k-ie">—</b><span class="cifra-apoyo">del directorio único (DUE)</span></div>
+      <div class="cifra"><span class="cifra-rotulo">Promedio por I. E. en la ciudad</span><b class="cifra-valor" id="k-prom">—</b><span class="cifra-apoyo">extranjeros por institución educativa</span></div>
     </div>
   </div>
 
@@ -191,13 +190,13 @@
     <header class="seccion-cabeza">
       <span class="seccion-num">01 · Territorio</span>
       <h2>Dónde está la población extranjera matriculada</h2>
-      <p class="seccion-intro">Las 21 comunas y corregimientos, coloreados según la métrica seleccionada. Cada punto es una sede educativa con cinco o más estudiantes extranjeros y su tamaño corresponde a cuántos atiende. Seleccione una división para consultar su detalle.</p>
+      <p class="seccion-intro">Las 21 comunas y corregimientos, coloreados según la métrica seleccionada. Cada punto es una sede educativa oficial con cinco o más estudiantes extranjeros y su tamaño corresponde a cuántos atiende. Seleccione una división para consultar su detalle.</p>
     </header>
     <div class="mapa-rejilla">
       <div class="caja mapa-caja">
         <div class="edu-pestanas" role="tablist" aria-label="Métrica del mapa" id="pestanas">
           <button type="button" role="tab" class="edu-pestanas__boton" data-metrica="ext" aria-selected="true">Total de migrantes</button>
-          <button type="button" role="tab" class="edu-pestanas__boton" data-metrica="promIE" aria-selected="false">Promedio por I. E.</button>
+          <button type="button" role="tab" class="edu-pestanas__boton" data-metrica="promIE" aria-selected="false">Promedio por I. E. en la comuna</button>
         </div>
         <svg id="mapa" role="img" aria-label="Mapa de Medellín por comuna y corregimiento con los estudiantes extranjeros matriculados"></svg>
         <div class="leyenda">
@@ -229,7 +228,7 @@
     <header class="seccion-cabeza">
       <span class="seccion-num">02 · Comunas y corregimientos</span>
       <h2>El volumen no coincide con el promedio</h2>
-      <p class="seccion-intro">Las mismas 21 divisiones ordenadas por dos criterios: el número de estudiantes extranjeros matriculados y el promedio que atiende cada institución educativa de la división.</p>
+      <p class="seccion-intro">Las mismas 21 divisiones ordenadas por dos criterios: el número de estudiantes extranjeros matriculados y el promedio por institución educativa en cada comuna o corregimiento.</p>
     </header>
     <div class="rankings">
       <div class="bloque">
@@ -237,7 +236,7 @@
         <table class="barras"><tbody id="rank-ext"></tbody></table>
       </div>
       <div class="bloque">
-        <h3 class="subtitulo">Promedio de extranjeros por institución</h3>
+        <h3 class="subtitulo">Promedio por I. E. en la comuna</h3>
         <table class="barras"><tbody id="rank-prom"></tbody></table>
       </div>
     </div>
@@ -251,7 +250,7 @@
             <th scope="col" class="num">Extranjeros</th>
             <th scope="col" class="num">I. E.</th>
             <th scope="col" class="num">Con migrantes</th>
-            <th scope="col" class="num">Promedio por I. E.</th>
+            <th scope="col" class="num">Promedio por I. E. en la comuna</th>
           </tr>
         </thead>
         <tbody id="tabla-comunas"></tbody>
@@ -264,7 +263,7 @@
     <header class="seccion-cabeza">
       <span class="seccion-num">03 · Instituciones educativas</span>
       <h2>Las instituciones que más población migrante atienden</h2>
-      <p class="seccion-intro">Instituciones ordenadas por número de estudiantes extranjeros matriculados, con su número de sedes, grupos y matrícula total.</p>
+      <p class="seccion-intro">Instituciones educativas oficiales ordenadas por número de estudiantes extranjeros matriculados, con su número de sedes, grupos y matrícula total.</p>
     </header>
     <div class="tabla-caja" style="margin-top:0">
       <table class="datos">
@@ -273,7 +272,6 @@
             <th scope="col">Institución educativa</th>
             <th scope="col">Comuna</th>
             <th scope="col">Barrio</th>
-            <th scope="col">Sector</th>
             <th scope="col" class="num">Sedes</th>
             <th scope="col" class="num">Grupos</th>
             <th scope="col" class="num">Matriculados</th>
@@ -321,7 +319,7 @@
         </div>
         <div>
           <h3>Definiciones</h3>
-          <p>Se considera estudiante extranjero a quien registra un país de origen distinto de Colombia sobre matrícula activa. El promedio por institución educativa es el número de estudiantes extranjeros de una división dividido entre sus instituciones educativas.</p>
+          <p>El universo del informe es la <span id="universo-def">matrícula en establecimientos oficiales, grados 0 a 11 y 99</span>. Se considera estudiante extranjero a quien registra un país de origen distinto de Colombia sobre matrícula activa. El promedio por I. E. en la comuna es el número de estudiantes extranjeros de una comuna o corregimiento dividido entre sus instituciones educativas; el promedio por I. E. en la ciudad divide el total de la ciudad entre todas las instituciones.</p>
         </div>
       </div>
       <div class="metodo-col">
@@ -332,7 +330,7 @@
             <div class="edu-aviso__cuerpo" id="aviso-datos">Todas las cifras son agregadas. La fuente contiene datos personales de menores de edad que no se reproducen. No se publican instituciones, sedes, nacionalidades ni modelos con menos de cinco estudiantes extranjeros, y las sedes por debajo de ese umbral no se representan en el mapa.</div>
           </div>
         </div>
-        <p class="edu-nota-legal"><strong>Ley 1581 de 2012.</strong> Los datos personales de origen se tratan únicamente para la planeación del servicio educativo. La Secretaría de Educación informa que las cifras aquí publicadas corresponden al corte del <span id="fecha-corte"></span> y pueden ajustarse con las actualizaciones de matrícula del SIMAT. <strong>Vigencia: <span id="vigencia"></span>.</strong></p>
+        <p class="edu-nota-legal"><strong>Ley 1581 de 2012.</strong> Los datos personales de origen se tratan únicamente para la planeación del servicio educativo. La Secretaría de Educación informa que las cifras aquí publicadas corresponden al procesamiento del <span id="fecha-corte"></span> y pueden ajustarse con las actualizaciones de matrícula del SIMAT. <strong>Vigencia: <span id="vigencia"></span>.</strong></p>
       </div>
     </div>
   </section>
@@ -418,15 +416,16 @@
 
   texto('antetitulo', 'Informe público · Vigencia ' + D.meta.vigencia);
   $('portada-resumen').innerHTML = 'La Secretaría de Educación registra <strong>' + nf(K.extranjeros) +
-    ' estudiantes extranjeros</strong> entre los ' + nf(K.matriculados) + ' matriculados en el Distrito, con un promedio de ' +
-    dec(K.promIE) + ' por institución educativa. El ' + pc(nacTop.pct) + ' proviene de ' + esc(paisTop) + '.';
+    ' estudiantes extranjeros</strong> entre los ' + nf(K.matriculados) + ' estudiantes de la ' + esc(D.meta.universo) +
+    ', con un promedio de ' + dec(K.promIE) + ' por institución educativa en la ciudad. El ' + pc(nacTop.pct) + ' proviene de ' + esc(paisTop) + '.';
   texto('portada-registros', nf(D.meta.registros) + ' registros procesados');
   texto('portada-fecha', 'Publicado el ' + fecha);
   texto('k-mat', nf(K.matriculados));
   texto('k-ext', nf(K.extranjeros));
   texto('k-nac', nf(K.nacionalidades));
   texto('k-prom', dec(K.promIE));
-  texto('k-ie', nf(K.instituciones));
+  texto('k-mat-apoyo', D.meta.universoCorto || 'matrícula total del Distrito');
+  texto('universo-def', D.meta.universo);
 
   $('marca-agua').innerHTML = [0, 1, 2, 3, 4].map(function (i) {
     return '<span class="edu-marca-agua__fila" style="margin-left:' + (i % 2 ? '-0.35em' : '-0.05em') +
@@ -437,7 +436,7 @@
   var NS = 'http://www.w3.org/2000/svg';
   var METRICAS = {
     ext: { leyenda: 'Estudiantes extranjeros matriculados', d: 0 },
-    promIE: { leyenda: 'Extranjeros por institución educativa', d: 1 }
+    promIE: { leyenda: 'Promedio por I. E. en la comuna', d: 1 }
   };
   var porNombre = {};
   D.comunas.forEach(function (c) { porNombre[c.n] = c; });
@@ -572,18 +571,18 @@
         fila('Matriculados', nf(K.matriculados)) +
         fila('Estudiantes extranjeros', nf(K.extranjeros), true) +
         fila('Instituciones educativas', nf(K.instituciones)) +
-        fila('Promedio por I. E.', dec(K.promIE), true);
+        fila('Promedio por I. E. en la ciudad', dec(K.promIE), true);
       texto('panel-nota', 'Seleccione una comuna o corregimiento en el mapa para consultar su detalle.');
       return;
     }
     texto('panel-titulo', nom(c.n));
-    texto('panel-etiqueta', dec(c.promIE) + ' por I. E.');
+    texto('panel-etiqueta', nf(c.ext) + ' extranjeros');
     $('panel-filas').innerHTML =
       fila('Matriculados', nf(c.mat)) +
       fila('Estudiantes extranjeros', nf(c.ext), true) +
       fila('Instituciones educativas', nf(c.ie)) +
       fila('I. E. con matrícula migrante', c.ieMig + ' de ' + c.ie) +
-      fila('Promedio por I. E.', dec(c.promIE), true);
+      fila('Promedio por I. E. en la comuna', dec(c.promIE), true);
     texto('panel-nota', c.ieMig + ' de las ' + c.ie + ' instituciones de la división atienden población extranjera. Seleccione de nuevo la división para volver a la ciudad completa.');
   }
 
@@ -606,7 +605,7 @@
     var p = ev.target.closest('.comuna');
     if (!p) { aviso.style.opacity = 0; return; }
     var c = porNombre[p.dataset.comuna];
-    aviso.innerHTML = '<b>' + esc(nom(p.dataset.comuna)) + '</b><br>' + nf(c.ext) + ' estudiantes extranjeros<br>' + dec(c.promIE) + ' por institución educativa';
+    aviso.innerHTML = '<b>' + esc(nom(p.dataset.comuna)) + '</b><br>' + nf(c.ext) + ' estudiantes extranjeros<br>' + dec(c.promIE) + ' por I. E. en la comuna';
     var x = Math.min(ev.clientX + 14, window.innerWidth - 256);
     var y = ev.clientY + 16 + 90 > window.innerHeight ? ev.clientY - 90 : ev.clientY + 16;
     aviso.style.left = x + 'px';
@@ -654,7 +653,7 @@
     })[0];
     var diluye = rE[ej.n] < rP[ej.n];
     texto('lectura-comunas', nom(ej.n) + ' es la ' + ordinal(rE[ej.n]) + ' división en volumen, con ' + nf(ej.ext) +
-      ' estudiantes extranjeros, ' + (diluye ? 'y la ' : 'pero la ') + ordinal(rP[ej.n]) + ' en promedio por institución, con ' +
+      ' estudiantes extranjeros, ' + (diluye ? 'y la ' : 'pero la ') + ordinal(rP[ej.n]) + ' en promedio por I. E. en la comuna, con ' +
       dec(ej.promIE) + ': ' + (diluye
         ? 'esa población se reparte entre ' + ej.ie + ' instituciones educativas.'
         : 'sus ' + ej.ie + ' instituciones educativas concentran esa población.') +
@@ -664,7 +663,7 @@
     var nombres = top3.map(function (c) { return nom(c.n); });
     texto('lectura-territorio', nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1] + ' concentran ' +
       nf(suma) + ' estudiantes extranjeros, el ' + pc(suma / K.extranjeros * 100) + ' del total de la ciudad. ' +
-      nom(porProm[0].n) + ' registra el mayor promedio: ' + dec(porProm[0].promIE) + ' estudiantes extranjeros por institución educativa.');
+      nom(porProm[0].n) + ' registra el mayor promedio por I. E. en la comuna: ' + dec(porProm[0].promIE) + ' estudiantes extranjeros.');
   })();
 
   $('tabla-comunas').innerHTML = porExt.map(function (c) {
@@ -682,15 +681,14 @@
     return '<tr><td class="nombre ie">' + esc(nomIE(x.n)) + '</td>' +
       '<td class="corto">' + esc(nom(x.c)) + '</td>' +
       '<td class="corto">' + esc(nom(x.barrio)) + '</td>' +
-      '<td class="corto apagado">' + esc(nom(x.s)) + '</td>' +
       '<td class="num">' + nf(x.sedes) + '</td>' +
       '<td class="num">' + nf(x.grupos) + '</td>' +
       '<td class="num">' + nf(x.mat) + '</td>' +
       '<td class="num fuerte">' + nf(x.ext) + '</td></tr>';
   }).join('');
   var ieTop = ies[0];
-  texto('nota-ie', 'Se muestran las ' + ies.length + ' instituciones con mayor matrícula extranjera de las ' + nf(K.instituciones) +
-    ' del directorio. La ' + nomIE(ieTop.n) + ', en ' + nom(ieTop.c) + ', atiende ' + nf(ieTop.ext) +
+  texto('nota-ie', 'Se muestran las ' + ies.length + ' instituciones educativas oficiales con mayor matrícula extranjera. La ' +
+    nomIE(ieTop.n) + ', en ' + nom(ieTop.c) + ', atiende ' + nf(ieTop.ext) +
     ' estudiantes extranjeros en ' + ieTop.sedes + (ieTop.sedes === 1 ? ' sede.' : ' sedes.'));
 
   /* ------------------------------------------------------- composicion */
@@ -715,7 +713,7 @@
   texto('vigencia', D.meta.vigencia);
   texto('pie-nota', 'Fuente: SIMAT vigencia ' + D.meta.vigencia + ' (' + nf(D.meta.registros) + ' registros) y Directorio Único de Establecimientos. ' +
     'Geometría de comunas y corregimientos: ' + D.meta.geoFuente + ', EPSG:4326. Cobertura territorial ' + pc(D.meta.cobertura, 0) +
-    '. Procesado el ' + fecha + '. Solo se publican cifras agregadas de ' + D.meta.umbral + ' o más estudiantes extranjeros.');
+    '. Procesado el ' + fecha + '. Universo: ' + D.meta.universo + '. Solo se publican cifras agregadas de ' + D.meta.umbral + ' o más estudiantes extranjeros.');
 })();
 </script>
 </body>

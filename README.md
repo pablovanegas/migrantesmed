@@ -31,14 +31,15 @@ No requiere compilación, servidor ni dependencias externas. El informe funciona
 
 Todas las cifras, los textos de lectura y las fechas del informe se generan desde `assets/datos/datos-informe.js`; `index.html` no contiene cifras escritas a mano y no se modifica.
 
-Para publicar un corte nuevo hay que regenerar ese archivo aplicando el mismo filtro de publicación: solo las cifras que el informe muestra y ninguna con menos de cinco estudiantes extranjeros. **Ese filtro no está incorporado al proceso interno del Observatorio**, que produce un archivo de datos más amplio. Esta versión se generó a partir del corte del 13 de septiembre de 2026. No publique el archivo de datos del proceso interno en lugar de este.
+El archivo lo genera el proceso interno del Observatorio (`exportar_informe_github.py`), que aplica el universo y el filtro de publicación —solo las cifras que el informe muestra y ninguna con menos de cinco estudiantes extranjeros— y se detiene si alguna cifra no cumple. No publique a mano el `datos.js` del proceso interno en lugar de este: es un archivo más amplio.
 
 ## Alcance de los datos
 
+- **Universo.** Matrícula en establecimientos oficiales, grados 0 a 11 y 99. Ningún registro fuera de ese universo entra en las cifras.
 - **Solo cifras agregadas.** La fuente es el Sistema Integrado de Matrícula (SIMAT) cruzado con el Directorio Único de Establecimientos. Los datos personales de origen no se reproducen.
 - **Solo lo que el informe muestra.** El archivo de datos contiene únicamente las cifras visibles: las 21 divisiones territoriales, las 12 instituciones con más estudiantes extranjeros, las nacionalidades y los modelos educativos representados.
 - **Sin grupos pequeños.** No se publica ninguna institución, sede, nacionalidad ni modelo con menos de cinco estudiantes extranjeros. Las sedes por debajo de ese umbral no se dibujan en el mapa.
-- **Definiciones.** Se considera estudiante extranjero a quien registra un país de origen distinto de Colombia sobre matrícula activa. El promedio por institución educativa es el número de estudiantes extranjeros de una división dividido entre sus instituciones.
+- **Definiciones.** Se considera estudiante extranjero a quien registra un país de origen distinto de Colombia sobre matrícula activa. El promedio por I. E. en la comuna es el número de estudiantes extranjeros de una comuna o corregimiento dividido entre sus instituciones educativas; el promedio por I. E. en la ciudad divide el total de la ciudad entre todas las instituciones.
 
 Los datos personales se tratan conforme a la Ley 1581 de 2012.
 
