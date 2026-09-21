@@ -93,13 +93,17 @@
   /* ---------- barras: tablas, para que ninguna cifra quede recortada ---------- */
   .rankings{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--esp-10)}
   .bloque{display:flex;flex-direction:column;gap:var(--esp-4);min-width:0}
-  table.barras{width:100%;border-collapse:collapse;font-size:var(--tam-etiqueta)}
-  table.barras th{padding:3px var(--esp-3) 3px 0;text-align:left;font-weight:var(--peso-regular);color:var(--texto-secundario);white-space:nowrap}
+  table.barras{width:100%;table-layout:fixed;border-collapse:collapse;font-size:var(--tam-etiqueta)}
+  table.barras th{padding:3px var(--esp-3) 3px 0;text-align:left;font-weight:var(--peso-regular);color:var(--texto-secundario);white-space:normal;line-height:1.3}
+  table.barras th:first-child{width:34%}
+  table.barras th.num{width:18%}
   table.barras td.pista{width:100%;padding:3px var(--esp-3) 3px 0}
   table.barras td.pista span{display:block;height:14px;background:var(--superficie-hundida);border-radius:2px;overflow:hidden}
   table.barras td.pista i{display:block;height:100%;min-width:2px;border-radius:2px}
-  table.barras td.valor{padding:3px 0;text-align:right;font-weight:var(--peso-bold);font-variant-numeric:tabular-nums;white-space:nowrap}
-  table.barras td.secundario{padding:3px 0 3px var(--esp-4);text-align:right;color:var(--texto-apoyo);font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.barras td.valor{width:18%;padding:3px 0;text-align:right;font-weight:var(--peso-bold);font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.barras td.secundario{width:18%;padding:3px 0 3px var(--esp-4);text-align:right;color:var(--texto-apoyo);font-variant-numeric:tabular-nums;white-space:nowrap}
+  table.barras thead th{padding-top:0;padding-bottom:var(--esp-2);border-bottom:1px solid var(--borde-sutil);font-size:var(--tam-micro);font-weight:var(--peso-bold);color:var(--texto-apoyo);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase}
+  table.barras thead th.num{text-align:right}
   table.barras.modelos{font-size:var(--tam-cuerpo-sm)}
   table.barras.modelos th{white-space:normal;min-width:11em;color:var(--texto-principal);line-height:1.3}
   table.barras.modelos td.pista span{height:16px}
@@ -120,11 +124,12 @@
   table.datos .apagado{color:var(--texto-apoyo)}
 
   /* ---------- composicion ---------- */
-  .composicion{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--esp-6)}
+  .composicion{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--esp-6)}
   .tarjeta{padding:var(--esp-6);display:flex;flex-direction:column;gap:var(--esp-5);min-width:0}
   .destacado{display:flex;align-items:baseline;flex-wrap:wrap;gap:var(--esp-2) var(--esp-4);padding:var(--esp-5);background:var(--estado-info-fondo);border-radius:var(--radio-md);color:var(--azul-306-profundo)}
   .destacado b{font-size:var(--tam-titulo-1);font-weight:var(--peso-black);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
   .destacado span{font-size:var(--tam-cuerpo-sm);line-height:var(--interlineado-compacto)}
+  .destacado-etiqueta{display:block;width:100%;font-size:var(--tam-micro);font-weight:var(--peso-bold);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase;color:var(--azul-306-profundo)}
 
   /* ---------- metodologia ---------- */
   .metodo{display:block;max-width:72ch;padding-bottom:var(--esp-6);font-size:var(--tam-micro);color:var(--texto-apoyo)}
@@ -200,7 +205,7 @@
         <div class="leyenda">
           <span class="leyenda-titulo">Concentración de estudiantes extranjeros</span>
           <label class="edu-interruptor">
-            <input type="checkbox" role="switch" id="ver-sedes" checked>
+            <input type="checkbox" role="switch" id="ver-sedes">
             <span class="edu-interruptor__pista"><span class="edu-interruptor__perilla"></span></span>
             <span>Sedes educativas</span>
           </label>
@@ -213,7 +218,6 @@
         <p class="panel-nota" id="panel-nota"></p>
       </aside>
     </div>
-    <p class="lectura"><strong>Lectura.</strong> <span id="lectura-territorio"></span></p>
   </section>
 
   <!-- 02 · Comunas -->
@@ -221,7 +225,7 @@
     <header class="seccion-cabeza">
       <span class="seccion-num">02 · Comunas y corregimientos</span>
       <h2>Distribución territorial</h2>
-      <p class="seccion-intro">Detalle de estudiantes extranjeros e instituciones educativas por comuna y corregimiento.</p>
+      <p class="seccion-intro">Comunas y corregimientos ordenados de mayor a menor número de estudiantes extranjeros, con el detalle de sus instituciones educativas.</p>
     </header>
     <div class="tabla-caja" style="margin-top:0">
       <table class="datos">
@@ -229,8 +233,8 @@
           <tr>
             <th scope="col">Comuna o corregimiento</th>
             <th scope="col" class="num">Extranjeros</th>
-            <th scope="col" class="num">I. E.</th>
-            <th scope="col" class="num">Con migrantes</th>
+            <th scope="col" class="num">Instituciones educativas</th>
+            <th scope="col" class="num">Instituciones educativas con estudiantes migrantes</th>
           </tr>
         </thead>
         <tbody id="tabla-comunas"></tbody>
@@ -242,8 +246,8 @@
   <section class="contenido seccion" id="instituciones">
     <header class="seccion-cabeza">
       <span class="seccion-num">03 · Instituciones educativas</span>
-      <h2>Las instituciones que más población migrante atienden</h2>
-      <p class="seccion-intro">Instituciones educativas oficiales ordenadas por el número de estudiantes extranjeros.</p>
+      <h2>Top de instituciones educativas</h2>
+      <p class="seccion-intro" id="instituciones-intro">Instituciones educativas oficiales ordenadas de mayor a menor número de estudiantes extranjeros.</p>
     </header>
     <div class="tabla-caja" style="margin-top:0">
       <table class="datos">
@@ -252,7 +256,7 @@
             <th scope="col">Institución educativa</th>
             <th scope="col">Comuna</th>
             <th scope="col">Barrio</th>
-            <th scope="col" class="num">Extranjeros</th>
+            <th scope="col" class="num">Estudiantes extranjeros</th>
           </tr>
         </thead>
         <tbody id="tabla-ie"></tbody>
@@ -269,13 +273,19 @@
     </header>
     <div class="composicion">
       <div class="caja tarjeta">
-        <h3 class="subtitulo" style="border:0;padding:0">Nacionalidad de origen</h3>
-        <div class="destacado"><b id="nac-top-pct"></b><span><strong id="nac-top-nombre"></strong><br><span id="nac-top-n"></span></span></div>
-        <table class="barras delgadas"><tbody id="nac-resto"></tbody></table>
+        <h3 class="subtitulo" style="border:0;padding:0">Top de nacionalidad de origen</h3>
+        <div class="destacado"><span class="destacado-etiqueta">País de origen con mayor representación</span><b id="nac-top-pct"></b><span><strong id="nac-top-nombre"></strong><br><span id="nac-top-n">del total de estudiantes extranjeros</span></span></div>
+        <table class="barras delgadas">
+          <thead><tr><th scope="col">Otros países de origen</th><th scope="col" aria-label="Gráfico"></th><th scope="col" class="num">Estudiantes</th><th scope="col" class="num">Participación</th></tr></thead>
+          <tbody id="nac-resto"></tbody>
+        </table>
       </div>
       <div class="caja tarjeta">
         <h3 class="subtitulo" style="border:0;padding:0">Modelo educativo · estudiantes extranjeros</h3>
-        <table class="barras modelos"><tbody id="modelos"></tbody></table>
+        <table class="barras modelos">
+          <thead><tr><th scope="col">Modelo educativo</th><th scope="col" aria-label="Gráfico"></th><th scope="col" class="num">Estudiantes</th><th scope="col" class="num">Participación</th></tr></thead>
+          <tbody id="modelos"></tbody>
+        </table>
       </div>
       <div class="caja tarjeta">
         <h3 class="subtitulo" style="border:0;padding:0">Estado regular</h3>
@@ -541,7 +551,7 @@
     $('panel-filas').innerHTML =
       fila('Estudiantes extranjeros', nf(c.ext), true) +
       fila('Instituciones educativas', nf(c.ie)) +
-      fila('Con migrantes', c.ieMig);
+      fila('Instituciones educativas con estudiantes migrantes', c.ieMig);
     texto('panel-nota', 'Seleccione de nuevo la división para volver a la ciudad completa.');
   }
 
@@ -552,6 +562,10 @@
   }
 
   var aviso = $('aviso-mapa');
+  var controlSedes = $('ver-sedes');
+  function sincronizarSedes() {
+    gSed.setAttribute('display', controlSedes.checked ? 'inline' : 'none');
+  }
   svg.addEventListener('click', function (ev) {
     var p = ev.target.closest('.comuna');
     if (p) seleccionar(p.dataset.comuna);
@@ -573,9 +587,8 @@
   });
   svg.addEventListener('mouseleave', function () { aviso.style.opacity = 0; });
 
-  $('ver-sedes').addEventListener('change', function (ev) {
-    gSed.setAttribute('display', ev.target.checked ? 'inline' : 'none');
-  });
+  controlSedes.addEventListener('change', sincronizarSedes);
+  sincronizarSedes();
 
   pintarMapa();
   pintarPanel();
@@ -609,6 +622,7 @@
 
   /* ---------------------------------------------------- instituciones */
   var ies = D.ie.slice().sort(function (a, b) { return b.ext - a.ext; });
+  texto('instituciones-intro', 'Top de ' + ies.length + ' instituciones educativas oficiales, ordenadas de mayor a menor número de estudiantes extranjeros.');
   $('tabla-ie').innerHTML = ies.map(function (x) {
     return '<tr><td class="nombre ie">' + esc(nomIE(x.n)) + '</td>' +
       '<td class="corto">' + esc(nom(x.c)) + '</td>' +
@@ -619,7 +633,7 @@
   /* ------------------------------------------------------- composicion */
   texto('nac-top-pct', pc(nacTop.pct));
   texto('nac-top-nombre', paisTop);
-  texto('nac-top-n', nf(nacTop.e) + ' estudiantes');
+  texto('nac-top-n', nf(nacTop.e) + ' estudiantes extranjeros');
   var resto = D.nacion.slice(1);
   $('nac-resto').innerHTML = barras(resto.map(function (x) { return { n: PAISES[x.p] || nom(x.p), v: x.e, pct: x.pct }; }),
     resto.length ? resto[0].e : 1, '#54c1ea', function (x) { return nf(x.v); }, function (x) { return pc(x.pct, 2); });
