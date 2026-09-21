@@ -104,9 +104,6 @@
   table.barras td.secundario{width:18%;padding:3px 0 3px var(--esp-4);text-align:right;color:var(--texto-apoyo);font-variant-numeric:tabular-nums;white-space:nowrap}
   table.barras thead th{padding-top:0;padding-bottom:var(--esp-2);border-bottom:1px solid var(--borde-sutil);font-size:var(--tam-micro);font-weight:var(--peso-bold);color:var(--texto-apoyo);letter-spacing:var(--tracking-etiqueta);text-transform:uppercase}
   table.barras thead th.num{text-align:right}
-  table.barras.modelos{font-size:var(--tam-cuerpo-sm)}
-  table.barras.modelos th{white-space:normal;min-width:11em;color:var(--texto-principal);line-height:1.3}
-  table.barras.modelos td.pista span{height:16px}
   table.barras.delgadas td.pista span{height:10px}
 
   /* ---------- tablas de datos ---------- */
@@ -268,8 +265,8 @@
   <section class="contenido seccion" id="composicion">
     <header class="seccion-cabeza">
       <span class="seccion-num">04 · Composición</span>
-      <h2>Quiénes son y en qué modelo estudian</h2>
-      <p class="seccion-intro">Nacionalidad de origen y modelo educativo en el que está matriculada la población extranjera.</p>
+      <h2>Quiénes son</h2>
+      <p class="seccion-intro">Nacionalidad de origen y estado de la población extranjera matriculada.</p>
     </header>
     <div class="composicion">
       <div class="caja tarjeta">
@@ -278,13 +275,6 @@
         <table class="barras delgadas">
           <thead><tr><th scope="col">Otros países de origen</th><th scope="col" aria-label="Gráfico"></th><th scope="col" class="num">Estudiantes</th><th scope="col" class="num">Participación</th></tr></thead>
           <tbody id="nac-resto"></tbody>
-        </table>
-      </div>
-      <div class="caja tarjeta">
-        <h3 class="subtitulo" style="border:0;padding:0">Modelo educativo · estudiantes extranjeros</h3>
-        <table class="barras modelos">
-          <thead><tr><th scope="col">Modelo educativo</th><th scope="col" aria-label="Gráfico"></th><th scope="col" class="num">Estudiantes</th><th scope="col" class="num">Participación</th></tr></thead>
-          <tbody id="modelos"></tbody>
         </table>
       </div>
       <div class="caja tarjeta">
@@ -365,15 +355,6 @@
   var TILDES = { belen: 'Belén', cristobal: 'Cristóbal', america: 'América', institucion: 'Institución', educacion: 'Educación', jose: 'José', maria: 'María', jesus: 'Jesús', angel: 'Ángel', nicolas: 'Nicolás', simon: 'Simón', bolivar: 'Bolívar', gomez: 'Gómez', perez: 'Pérez', martinez: 'Martínez', gonzalez: 'González', ramirez: 'Ramírez', velez: 'Vélez', rodriguez: 'Rodríguez', hernandez: 'Hernández', sanchez: 'Sánchez', diaz: 'Díaz', corazon: 'Corazón', concepcion: 'Concepción', asuncion: 'Asunción', union: 'Unión', leon: 'León', ramon: 'Ramón', joaquin: 'Joaquín', hector: 'Héctor', ines: 'Inés', republica: 'República', ninos: 'Niños', mision: 'Misión', tomas: 'Tomás', andres: 'Andrés', pedron: 'Pedrón', eucaristico: 'Eucarístico', montana: 'Montaña', sebastian: 'Sebastián', martin: 'Martín', garcia: 'García', lopez: 'López', marquez: 'Márquez', benitez: 'Benítez' };
   var MENORES = { de: 1, del: 1, la: 1, las: 1, los: 1, el: 1, y: 1, e: 1, a: 1 };
   var PAISES = { 'ESTADOS UNIDOS': 'Estados Unidos', ECUADOR: 'Ecuador', PANAMA: 'Panamá', PERU: 'Perú', ESPANA: 'España', ARGENTINA: 'Argentina', CHILE: 'Chile', BRASIL: 'Brasil', MEXICO: 'México', 'COSTA RICA': 'Costa Rica', 'NO ESPECIFICADO': 'No especificado', VENEZUELA: 'Venezuela', CANADA: 'Canadá', BOLIVIA: 'Bolivia', CUBA: 'Cuba' };
-  var MODELOS = {
-    'EDUCACION TRADICIONAL': 'Educación tradicional',
-    'PROGRAMA PARA JOVENES EN EXTRAEDAD Y ADULTOS': 'Jóvenes en extraedad y adultos',
-    'FLEXIBLE PENSAR': 'Flexible Pensar',
-    'ACELERACION DEL APRENDIZAJE': 'Aceleración del Aprendizaje',
-    'HORIZONTES CON BRUJULA PARA EL APRENDIZAJE': 'Horizontes con Brújula para el Aprendizaje',
-    'ESCUELA NUEVA': 'Escuela Nueva',
-    'TEJIENDO SABERES': 'Tejiendo Saberes'
-  };
   var ORD = ['', 'primera', 'segunda', 'tercera', 'cuarta', 'quinta', 'sexta', 'séptima', 'octava', 'novena', 'décima', 'undécima', 'duodécima', 'decimotercera', 'decimocuarta', 'decimoquinta', 'decimosexta', 'decimoséptima', 'decimoctava', 'decimonovena', 'vigésima', 'vigesimoprimera'];
   var MES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
   var RAMPA = ['#e4f6fd', '#c0e9fa', '#8fd8f5', '#54c1ea', '#1ea3d6', '#0b6ea8', '#003a57'];
@@ -638,9 +619,6 @@
   $('nac-resto').innerHTML = barras(resto.map(function (x) { return { n: PAISES[x.p] || nom(x.p), v: x.e, pct: x.pct }; }),
     resto.length ? resto[0].e : 1, '#54c1ea', function (x) { return nf(x.v); }, function (x) { return pc(x.pct, 2); });
 
-  var mods = D.modelos.slice().sort(function (a, b) { return b.ext - a.ext; });
-  $('modelos').innerHTML = barras(mods.map(function (m) { return { n: MODELOS[m.m] || nom(m.m), v: m.ext, pct: m.pct }; }),
-    mods[0].ext, '#0b6ea8', function (x) { return nf(x.v); }, function (x) { return pc(x.pct); });
   texto('indice-regular', pc(K.indiceRegular, 2));
 
   /* ------------------------------------------------------ metodologia y pie */
